@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="id.ac.uad.android.jamal.uadapp">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/NoTittle">
+        <activity android:name=".login.Splash">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:label="UAD Mobile App"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".login.Login" />
+        <activity
+            android:name=".perwalian.Perwalian"
+            android:label="Perwalian Mahasiswa"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".simeru.Simeru"
+            android:label="Simeru UAD"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".Tentang" />
+        <activity android:name=".simeru.Pengumuman" />
+        <activity android:name=".simeru.JadwalDosen" />
+        <activity android:name=".simeru.JadwalKuliah" />
+        <activity android:name=".simeru.JadwalRuang"></activity>
+    </application>
+
+</manifest>
