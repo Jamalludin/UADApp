@@ -6,7 +6,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/NoTittle">
@@ -32,9 +32,23 @@
             android:theme="@style/AppTheme" />
         <activity android:name=".Tentang" />
         <activity android:name=".simeru.Pengumuman" />
-        <activity android:name=".simeru.JadwalDosen" />
-        <activity android:name=".simeru.JadwalKuliah" />
-        <activity android:name=".simeru.JadwalRuang"></activity>
+        <activity
+            android:name=".simeru.JadwalDosen"
+            android:label="Jadwal Dosen"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".simeru.JadwalKuliah"
+            android:label="Jadwal Kuliah"
+            android:theme="@style/MyMaterialTheme" />
+        <activity
+            android:name=".simeru.JadwalRuang"
+            android:label="Jadwal Ruang"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".simeru.JadwalNgajarDosen"
+            android:label="Jadwal Ngajar"
+            android:theme="@style/MyMaterialTheme">
+        </activity>
     </application>
 
 </manifest>

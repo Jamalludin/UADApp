@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#EEEEEE">
+
+            <ImageView
+                android:id="@+id/gambar"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:background="@drawable/ic_dosen"/>
+
+            <TextView
+                android:id="@+id/namadosen"
+                android:layout_toRightOf="@+id/gambar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nama Dosen"
+                android:textSize="14dp"
+                android:textColor="@color/colorPrimary"
+                android:paddingTop="10dp"
+                android:paddingLeft="10dp"/>
+
+            <TextView
+                android:id="@+id/niydosen"
+                android:layout_below="@+id/namadosen"
+                android:layout_toRightOf="@+id/gambar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="NIY / NIY Dosen"
+                android:textColor="#448AFF"
+                android:paddingTop="10dp"
+                android:paddingLeft="10dp"/>
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>
