@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/card_view_pengumuman"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#EEEEEE">
+
+            <ImageView
+                android:id="@+id/gambarpengumuman"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_centerVertical="true"
+                android:background="@drawable/ic_note"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp" />
+
+            <TextView
+                android:id="@+id/tanggalpengumuman"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:text="Tanggal : "
+                android:textColor="@color/colorPrimary"
+                android:textSize="14dp"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/gambarpengumuman" />
+
+            <TextView
+                android:id="@+id/tanggalnya"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="70dp"
+                android:layout_toEndOf="@+id/gambarpengumuman"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:text="Tanggal Pengumuman"
+                android:textColor="@color/colorPrimary" />
+
+            <TextView
+                android:id="@+id/pengumumannya"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Pengumuman"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:textColor="#448AFF"
+                android:layout_below="@+id/tanggalpengumuman"
+                android:layout_toEndOf="@+id/gambarpengumuman" />
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

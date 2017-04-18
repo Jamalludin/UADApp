@@ -31,7 +31,9 @@
             android:label="Simeru UAD"
             android:theme="@style/AppTheme" />
         <activity android:name=".Tentang" />
-        <activity android:name=".simeru.Pengumuman" />
+        <activity android:name=".simeru.Pengumuman"
+            android:theme="@style/AppTheme"
+            android:label="Pengumuman Simeru UAD"/>
         <activity
             android:name=".simeru.JadwalDosen"
             android:label="Jadwal Dosen"

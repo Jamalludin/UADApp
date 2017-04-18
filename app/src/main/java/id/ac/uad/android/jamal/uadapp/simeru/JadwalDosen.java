@@ -34,7 +34,6 @@ import id.ac.uad.android.jamal.uadapp.R;
 
 public class JadwalDosen extends AppCompatActivity {
 
-    private TextView niy, nama;
     String JsonURL = "http://perwalian.esy.es/api/dosen_api.php";
     RequestQueue requestQueue;
     private RecyclerView recyclerView;
@@ -72,8 +71,6 @@ public class JadwalDosen extends AppCompatActivity {
                         }
                         Adapter adapter = new Adapter(datas);
                         recyclerView.setAdapter(adapter);
-                        Toast.makeText(JadwalDosen.this, "REMPANGE !!! " + datas.size(), Toast.LENGTH_SHORT).show();
-
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -93,7 +90,6 @@ public class JadwalDosen extends AppCompatActivity {
 
         class Holdernya extends RecyclerView.ViewHolder {
             TextView niy, nama;
-
 
             public Holdernya(View itemView) {
                 super(itemView);
@@ -133,7 +129,6 @@ public class JadwalDosen extends AppCompatActivity {
             return this.datas.size();
         }
     }
-
 
     class Data {
         String niy, nama;
