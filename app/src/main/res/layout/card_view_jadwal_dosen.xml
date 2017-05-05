@@ -18,6 +18,7 @@
                 android:id="@+id/gambar"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
+                android:layout_centerVertical="true"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 android:background="@drawable/ic_dosen"/>
@@ -37,7 +38,7 @@
                 android:id="@+id/niydosen"
                 android:layout_below="@+id/namadosen"
                 android:layout_toRightOf="@+id/gambar"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="NIY / NIY Dosen"
                 android:textColor="#448AFF"

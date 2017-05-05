@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#EEEEEE">
+
+            <ImageView
+                android:id="@+id/gkuliah"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerVertical="true"
+                android:background="@drawable/ic_assignment_black"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp" />
+
+            <TextView
+                android:id="@+id/kodekul"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/gkuliah"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:text="Kode Kuliah : "
+                android:textColor="@color/colorPrimary"
+                android:textSize="14dp" />
+
+            <TextView
+                android:id="@+id/kuliahnya"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="97dp"
+                android:layout_toEndOf="@+id/gkuliah"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:text="Code Kuliah"
+                android:textColor="#448AFF" />
+
+            <TextView
+                android:id="@+id/kodemat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/gkuliah"
+                android:layout_toEndOf="@+id/gkuliah"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:text="Mata Kuliah : "
+                android:textColor="@color/colorPrimary"
+                android:textSize="14dp" />
+
+            <TextView
+                android:id="@+id/matkulnya"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/gkuliah"
+                android:layout_alignStart="@+id/kuliahnya"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:text="Mata Kuliah"
+                android:textColor="#448AFF" />
+
+            <TextView
+                android:id="@+id/kodekel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/kelasnya"
+                android:layout_alignBottom="@+id/kelasnya"
+                android:layout_alignStart="@+id/kodemat"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:text="Kelas : "
+                android:textColor="@color/colorPrimary" />
+
+            <TextView
+                android:id="@+id/kelasnya"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/matkulnya"
+                android:layout_below="@+id/kodemat"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:text="Kelas"
+                android:textColor="#448AFF" />
+
+            <TextView
+                android:id="@+id/kodesks"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/sksnya"
+                android:layout_alignBottom="@+id/sksnya"
+                android:layout_alignStart="@+id/kodekel"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:text="SKS : "
+                android:textColor="@color/colorPrimary" />
+
+            <TextView
+                android:id="@+id/sksnya"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/kelasnya"
+                android:layout_below="@+id/kodekel"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:text="SKS"
+                android:textColor="#448AFF" />
+
+            <TextView
+                android:id="@+id/kodejm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/jamnya"
+                android:layout_alignBottom="@+id/jamnya"
+                android:layout_alignStart="@+id/kodesks"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:text="Jam : "
+                android:textColor="@color/colorPrimary" />
+
+            <TextView
+                android:id="@+id/jamnya"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/sksnya"
+                android:layout_below="@+id/kodesks"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:text="Jam"
+                android:textColor="#448AFF" />
+
+            <TextView
+                android:id="@+id/kodesem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/kodejm"
+                android:layout_below="@+id/kodejm"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:text="Semester : "
+                android:textColor="@color/colorPrimary" />
+
+            <TextView
+                android:id="@+id/semesternya"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/jamnya"
+                android:layout_below="@+id/kodejm"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:text="Semester"
+                android:textColor="#448AFF" />
+
+            <TextView
+                android:id="@+id/kodedsn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/kodesem"
+                android:layout_below="@+id/kodesem"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:text="Dosen : "
+                android:textColor="@color/colorPrimary" />
+
+            <TextView
+                android:id="@+id/namadosen"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/semesternya"
+                android:layout_below="@+id/semesternya"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:text="Dosen"
+                android:textColor="#448AFF" />
+
+            <TextView
+                android:id="@+id/koderuang"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:text="Ruang : "
+                android:textColor="@color/colorPrimary"
+                android:layout_below="@+id/kodedsn"
+                android:layout_alignStart="@+id/kodedsn" />
+
+            <TextView
+                android:id="@+id/ruangannya"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:text="Ruang"
+                android:textColor="#448AFF"
+                android:layout_below="@+id/namadosen"
+                android:layout_alignStart="@+id/namadosen" />
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>
