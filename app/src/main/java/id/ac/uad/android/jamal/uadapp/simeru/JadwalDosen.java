@@ -62,7 +62,9 @@ public class JadwalDosen extends AppCompatActivity {
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                                 final Data data = new Data();
-                                data.setNiy(jsonObject.getString("niynip"));
+                                data.setNiy(jsonObject.getString("niy"));
+                                data.setNip(jsonObject.getString("nip"));
+                                data.setNidn(jsonObject.getString("nidn"));
                                 data.setNama(jsonObject.getString("nama"));
                                 datas.add(data);
                             }
@@ -89,11 +91,13 @@ public class JadwalDosen extends AppCompatActivity {
         }
 
         class Holdernya extends RecyclerView.ViewHolder {
-            TextView niy, nama;
+            TextView niy,nip,nidn, nama;
 
             public Holdernya(View itemView) {
                 super(itemView);
-                niy = (TextView) itemView.findViewById(R.id.niydosen);
+                niy = (TextView) itemView.findViewById(R.id.niynya);
+                nip = (TextView) itemView.findViewById(R.id.nipnya);
+                nidn = (TextView) itemView.findViewById(R.id.nidnnya);
                 nama = (TextView) itemView.findViewById(R.id.namadosen);
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -121,6 +125,8 @@ public class JadwalDosen extends AppCompatActivity {
         @Override
         public void onBindViewHolder(Holdernya holder, int position) {
             holder.niy.setText(this.datas.get(position).getNiy());
+            holder.nip.setText(this.datas.get(position).getNip());
+            holder.nidn.setText(this.datas.get(position).getNidn());
             holder.nama.setText(this.datas.get(position).getNama());
         }
 
@@ -131,15 +137,16 @@ public class JadwalDosen extends AppCompatActivity {
     }
 
     class Data {
-        String niy, nama;
-
-        public Data(String niy, String nama) {
-            this.niy = niy;
-            this.nama = nama;
-        }
+        String niy,nip,nidn,nama;
 
         public Data() {
+        }
 
+        public Data(String niy, String nip, String nidn, String nama) {
+            this.niy = niy;
+            this.nip = nip;
+            this.nidn = nidn;
+            this.nama = nama;
         }
 
         public String getNiy() {
@@ -148,6 +155,22 @@ public class JadwalDosen extends AppCompatActivity {
 
         public void setNiy(String niy) {
             this.niy = niy;
+        }
+
+        public String getNip() {
+            return nip;
+        }
+
+        public void setNip(String nip) {
+            this.nip = nip;
+        }
+
+        public String getNidn() {
+            return nidn;
+        }
+
+        public void setNidn(String nidn) {
+            this.nidn = nidn;
         }
 
         public String getNama() {

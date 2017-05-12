@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -52,10 +53,7 @@ public class SeninFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        String url = "";
-        final ProgressDialog progressDialog = new ProgressDialog(getActivity());
-        progressDialog.setTitle("Mohon Tunggu Sebentar ...");
-        progressDialog.setMessage("Sebentar ...");
+        String url = "http://perwalian.esy.es/api/kuliah.php?hari=senin";
 
         RecyclerView.LayoutManager setmanager = new LinearLayoutManager(getActivity().getApplicationContext());
         final RecyclerView recyclerView = (RecyclerView) getActivity().findViewById(R.id.cardsenin);
@@ -71,7 +69,15 @@ public class SeninFragment extends Fragment {
                     JSONArray jsonArray = response.getJSONArray("kuliah");
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        Datanya data = new Datanya();
+                        final Datanya data = new Datanya();
+                        data.setKode(jsonObject.getString("kode"));
+                        data.setMatakuliah(jsonObject.getString("matakuliah"));
+                        data.setKelas(jsonObject.getString("kelas"));
+                        data.setSks(jsonObject.getString("sks"));
+                        data.setJam(jsonObject.getString("jam"));
+                        data.setSemester(jsonObject.getString("semester"));
+                        data.setDosen(jsonObject.getString("dosen"));
+                        data.setRuang(jsonObject.getString("ruang"));
                         dataya.add(data);
                     }
                 } catch (JSONException e) {
@@ -93,9 +99,19 @@ public class SeninFragment extends Fragment {
         List<Datanya> isiDatanya;
 
         class ViewAdapter extends RecyclerView.ViewHolder{
+            TextView kode,matakuliah,kelas,sks,jam,semester,dosen,ruang;
 
             ViewAdapter(View item) {
                 super(item);
+
+                kode = (TextView)item.findViewById(R.id.kuliahnya);
+                matakuliah = (TextView)item.findViewById(R.id.matkulnya);
+                kelas = (TextView)item.findViewById(R.id.kelasnya);
+                sks = (TextView)item.findViewById(R.id.sksnya);
+                jam = (TextView)item.findViewById(R.id.jamnya);
+                semester = (TextView)item.findViewById(R.id.semesternya);
+                dosen = (TextView)item.findViewById(R.id.namadosen);
+                ruang = (TextView)item.findViewById(R.id.ruangannya);
 
             }
         }
@@ -105,21 +121,111 @@ public class SeninFragment extends Fragment {
 
         @Override
         public int getItemCount() {
-            return 0;
+            return this.isiDatanya.size();
         }
 
         @Override
         public ViewAdapter onCreateViewHolder(ViewGroup parent, int viewType) {
-            return null;
+
+            View v = LayoutInflater.from(parent.getContext()).
+                    inflate(R.layout.card_view_jadwal_kuliah, parent,false);
+            ViewAdapter holder = new ViewAdapter(v);
+            return holder;
         }
 
         @Override
         public void onBindViewHolder(ViewAdapter holder, int position) {
+            holder.kode.setText(this.isiDatanya.get(position).getKode());
+            holder.matakuliah.setText(this.isiDatanya.get(position).getMatakuliah());
+            holder.kelas.setText(this.isiDatanya.get(position).getKelas());
+            holder.sks.setText(this.isiDatanya.get(position).getSks());
+            holder.jam.setText(this.isiDatanya.get(position).getJam());
+            holder.semester.setText(this.isiDatanya.get(position).getSemester());
+            holder.dosen.setText(this.isiDatanya.get(position).getDosen());
+            holder.ruang.setText(this.isiDatanya.get(position).getRuang());
 
         }
     }
 
     class Datanya {
+        String kode,matakuliah,kelas,sks,jam,semester,dosen,ruang;
 
+        public Datanya() {
+        }
+
+        public Datanya(String kode, String matakuliah, String kelas, String sks, String jam, String semester, String dosen, String ruang) {
+            this.kode = kode;
+            this.matakuliah = matakuliah;
+            this.kelas = kelas;
+            this.sks = sks;
+            this.jam = jam;
+            this.semester = semester;
+            this.dosen = dosen;
+            this.ruang = ruang;
+        }
+
+        public String getKode() {
+            return kode;
+        }
+
+        public void setKode(String kode) {
+            this.kode = kode;
+        }
+
+        public String getMatakuliah() {
+            return matakuliah;
+        }
+
+        public void setMatakuliah(String matakuliah) {
+            this.matakuliah = matakuliah;
+        }
+
+        public String getKelas() {
+            return kelas;
+        }
+
+        public void setKelas(String kelas) {
+            this.kelas = kelas;
+        }
+
+        public String getSks() {
+            return sks;
+        }
+
+        public void setSks(String sks) {
+            this.sks = sks;
+        }
+
+        public String getJam() {
+            return jam;
+        }
+
+        public void setJam(String jam) {
+            this.jam = jam;
+        }
+
+        public String getSemester() {
+            return semester;
+        }
+
+        public void setSemester(String semester) {
+            this.semester = semester;
+        }
+
+        public String getDosen() {
+            return dosen;
+        }
+
+        public void setDosen(String dosen) {
+            this.dosen = dosen;
+        }
+
+        public String getRuang() {
+            return ruang;
+        }
+
+        public void setRuang(String ruang) {
+            this.ruang = ruang;
+        }
     }
 }
