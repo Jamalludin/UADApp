@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,10 +32,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import id.ac.uad.android.jamal.uadapp.R;
+import id.ac.uad.android.jamal.uadapp.login.Session;
 
 public class JadwalDosen extends AppCompatActivity {
 
-    String JsonURL = "http://perwalian.esy.es/api/dosen_api.php";
     RequestQueue requestQueue;
     private RecyclerView recyclerView;
 
@@ -42,6 +43,10 @@ public class JadwalDosen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jadwal_dosen);
+
+        String[] p = new Session(JadwalDosen.this).getProdi().split(" ");
+        String namaProdi = TextUtils.join("%20",p);
+        String JsonURL = "http://perwalian.esy.es/api/dosen_api.php?prodi="+namaProdi;
 
         requestQueue = Volley.newRequestQueue(this);
 

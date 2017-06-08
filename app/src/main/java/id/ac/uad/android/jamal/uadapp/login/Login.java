@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import id.ac.uad.android.jamal.uadapp.MainActivity;
@@ -64,8 +65,9 @@ public class Login extends AppCompatActivity {
                 JSONObject object = new JSONObject(s);
                 String hasil = object.getString("hasil");
                 if(hasil.equals("sukses")){
+                    JSONArray jsonArray = object.getJSONArray("data");
                     new Session(getApplicationContext()).buatLogin(nim.getText().toString(),
-                            pass.getText().toString());
+                            pass.getText().toString(),jsonArray.getJSONObject(0).getString("prodi"));
 
                     Intent masuk = new Intent(Login.this, MainActivity.class);
                     startActivity(masuk);
@@ -75,7 +77,7 @@ public class Login extends AppCompatActivity {
                     Toast.makeText(Login.this, "Invalid NIM or Password", Toast.LENGTH_SHORT).show();
                 }
             }catch (Exception e){
-                e.printStackTrace();
+                Toast.makeText(Login.this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }
 

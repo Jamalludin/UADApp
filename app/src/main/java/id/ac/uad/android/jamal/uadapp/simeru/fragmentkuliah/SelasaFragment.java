@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import id.ac.uad.android.jamal.uadapp.R;
+import id.ac.uad.android.jamal.uadapp.login.Session;
 
 /**
  * Created by jamal on 15/03/17.
@@ -50,7 +52,10 @@ public class SelasaFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        String url = "http://perwalian.esy.es/api/kuliah.php?hari=selasa";
+        String[] p = new Session(getContext()).getProdi().split(" ");
+        String namaProdi = TextUtils.join("%20",p);
+
+        String url = "http://perwalian.esy.es/api/kuliah.php?hari=selasa&prodi="+namaProdi;
 
         RecyclerView.LayoutManager setmanager = new LinearLayoutManager(getActivity().getApplicationContext());
         final RecyclerView recyclerView = (RecyclerView) getActivity().findViewById(R.id.cardselasa);

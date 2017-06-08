@@ -8,11 +8,13 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import id.ac.uad.android.jamal.uadapp.R;
+import id.ac.uad.android.jamal.uadapp.login.Session;
 import id.ac.uad.android.jamal.uadapp.simeru.fragmentkuliah.JumatFragment;
 import id.ac.uad.android.jamal.uadapp.simeru.fragmentkuliah.KamisFragment;
 import id.ac.uad.android.jamal.uadapp.simeru.fragmentkuliah.RabuFragment;
@@ -40,7 +42,6 @@ public class JadwalKuliah extends AppCompatActivity {
 
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
-
     }
 
     private void setupViewPager(ViewPager viewPager) {

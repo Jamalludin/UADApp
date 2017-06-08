@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import id.ac.uad.android.jamal.uadapp.R;
+import id.ac.uad.android.jamal.uadapp.login.Session;
 import id.ac.uad.android.jamal.uadapp.simeru.Pengumuman;
 
 /**
@@ -53,14 +55,16 @@ public class SeninFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        String url = "http://perwalian.esy.es/api/kuliah.php?hari=senin";
+        String[] p = new Session(getContext()).getProdi().split(" ");
+        String namaProdi = TextUtils.join("%20",p);
+
+        String url = "http://perwalian.esy.es/api/kuliah.php?hari=senin&prodi="+namaProdi;
 
         RecyclerView.LayoutManager setmanager = new LinearLayoutManager(getActivity().getApplicationContext());
         final RecyclerView recyclerView = (RecyclerView) getActivity().findViewById(R.id.cardsenin);
         recyclerView.setLayoutManager(setmanager);
 
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
-
         JsonObjectRequest arrayReq = new JsonObjectRequest(url, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -81,7 +85,7 @@ public class SeninFragment extends Fragment {
                         dataya.add(data);
                     }
                 } catch (JSONException e) {
-                    e.printStackTrace();
+                    Toast.makeText(getContext(), "error json "+e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
                 Adapternya adapter = new Adapternya(dataya);
                 recyclerView.setAdapter(adapter);
@@ -89,7 +93,7 @@ public class SeninFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                Toast.makeText(getContext(), "ini error volley "+error.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
         requestQueue.add(arrayReq);
