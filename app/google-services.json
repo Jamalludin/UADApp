@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "877252097837",
-    "firebase_url": "https://uadapp-bef45.firebaseio.com",
-    "project_id": "uadapp-bef45",
-    "storage_bucket": "uadapp-bef45.appspot.com"
+    "project_number": "317478308842",
+    "firebase_url": "https://uadapp-3c06c.firebaseio.com",
+    "project_id": "uadapp-3c06c",
+    "storage_bucket": "uadapp-3c06c.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:877252097837:android:b6de807ef6cc5f33",
+        "mobilesdk_app_id": "1:317478308842:android:b6de807ef6cc5f33",
         "android_client_info": {
           "package_name": "id.ac.uad.android.jamal.uadapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "877252097837-u000erc0d5s85t72fop97e3j2i0p7i9j.apps.googleusercontent.com",
+          "client_id": "317478308842-nckl3ov1gqns8nja3nqekp8cfv4og00b.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "id.ac.uad.android.jamal.uadapp",
@@ -23,13 +23,13 @@
           }
         },
         {
-          "client_id": "877252097837-5dpq68lt2023sav3qno2kbk2s9aenrsb.apps.googleusercontent.com",
+          "client_id": "317478308842-oo3eudiemloh61k1obfbudd0ij62o7vt.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyClxWLsZCovKc7rTQoKKlCvnqO1dr8mS8o"
+          "current_key": "AIzaSyDVnJYzxEg-FGkm5-3WhLNYQBleG-JQX_Y"
         }
       ],
       "services": {
@@ -40,7 +40,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "877252097837-5dpq68lt2023sav3qno2kbk2s9aenrsb.apps.googleusercontent.com",
+              "client_id": "317478308842-oo3eudiemloh61k1obfbudd0ij62o7vt.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

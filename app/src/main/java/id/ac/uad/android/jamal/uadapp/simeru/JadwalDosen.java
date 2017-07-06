@@ -109,7 +109,6 @@ public class JadwalDosen extends AppCompatActivity {
                     public void onClick(View v) {
                         Intent i = new Intent(JadwalDosen.this, JadwalNgajarDosen.class);
                         startActivity(i);
-
                         Toast.makeText(getApplicationContext() ,nama.getText().toString(),
                                 Toast.LENGTH_SHORT).show();
 
