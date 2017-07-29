@@ -4,6 +4,7 @@
     android:id="@+id/activity_jadwal_ruang"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="10dp"
     tools:context="id.ac.uad.android.jamal.uadapp.simeru.JadwalRuang">
 
     <android.support.v7.widget.RecyclerView

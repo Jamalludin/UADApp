@@ -10,8 +10,21 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.google.firebase.iid.FirebaseInstanceId;
+
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import id.ac.uad.android.jamal.uadapp.MainActivity;
 import id.ac.uad.android.jamal.uadapp.R;
@@ -21,6 +34,8 @@ public class Login extends AppCompatActivity {
     protected EditText nim, pass;
     protected Button masuk;
     protected ProgressDialog pDialog;
+
+    private static final String URL_REGISTER_DEVICE = "http://192.168.43.168/android/pesan/RegisterDevice.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +51,7 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 new LoginApp().execute();
+                sendTokenToServer();
             }
         });
         if(new Session(getApplicationContext()).cekLogin() == true){
@@ -43,6 +59,45 @@ public class Login extends AppCompatActivity {
             finish();
         }
     }
+
+    private void sendTokenToServer(){
+        final String token = FirebaseInstanceId.getInstance().getToken();
+        final String nimmhs = nim.getText().toString();
+
+        if (token == null){
+            Toast.makeText(this, "Toket Not Generate", Toast.LENGTH_SHORT).show();
+        }
+
+        StringRequest req = new StringRequest(Request.Method.POST, URL_REGISTER_DEVICE,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject obj = new JSONObject(response);
+                            Toast.makeText(Login.this, obj.getString("message"), Toast.LENGTH_SHORT).show();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(Login.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("mahasiswa_nim",nimmhs);
+                params.put("token",token);
+                return params;
+            }
+        };
+        RequestQueue reqU = Volley.newRequestQueue(this);
+        reqU.add(req);
+
+    }
+
     class LoginApp extends AsyncTask<Void,Void,String> {
 
         @Override

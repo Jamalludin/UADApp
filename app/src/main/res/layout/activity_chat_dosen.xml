@@ -17,10 +17,9 @@
         android:layout_gravity="bottom|end"
         app:srcCompat="@drawable/ic_send_white_36dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        app:fabSize="mini"/>
+        app:fabSize="mini"
+        android:layout_alignParentEnd="true" />
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
@@ -31,7 +30,7 @@
         android:id="@+id/msginput">
 
         <EditText
-            android:layout_width="match_parent"
+            android:layout_width="311dp"
             android:layout_height="wrap_content"
             android:hint="Input Pesan"
             android:id="@+id/inputmsg"/>
