@@ -2,6 +2,8 @@ package id.ac.uad.android.jamal.uadapp;
 
 import org.junit.Test;
 
+import id.ac.uad.android.jamal.uadapp.simeru.Pengumuman;
+
 import static org.junit.Assert.*;
 
 /**

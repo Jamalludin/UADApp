@@ -4,7 +4,10 @@
     android:id="@+id/activity_jadwal_ruang"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="10dp"
+    android:paddingTop="10dp"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp"
+    android:paddingBottom="5dp"
     tools:context="id.ac.uad.android.jamal.uadapp.simeru.JadwalRuang">
 
     <android.support.v7.widget.RecyclerView

@@ -30,6 +30,7 @@ public class Pengumuman extends AppCompatActivity {
     private RecyclerView Rview;
     String JsonURL = "http://perwalian.esy.es/api/berita_api.php";
     RequestQueue reqQueue;
+    List<IsiData> datanya;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,11 +43,17 @@ public class Pengumuman extends AppCompatActivity {
         RecyclerView.LayoutManager mlayout = new LinearLayoutManager(this);
         Rview.setLayoutManager(mlayout);
 
+        getData();
+
+
+    }
+    public void getData(){
+
         JsonObjectRequest arrReq = new JsonObjectRequest(JsonURL,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        List<IsiData> datanya = new ArrayList<>();
+                        datanya = new ArrayList<>();
                         try {
                             JSONArray jsonArray = response.getJSONArray("berita");
                             for (int i = 0; i < jsonArray.length(); i++) {
@@ -56,6 +63,7 @@ public class Pengumuman extends AppCompatActivity {
                                 data.setPengumuman(jsonObject.getString("isi_berita"));
                                 datanya.add(data);
                             }
+
                         } catch (JSONException e) {
                             Toast.makeText(Pengumuman.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
@@ -69,6 +77,11 @@ public class Pengumuman extends AppCompatActivity {
             }
         });
         reqQueue.add(arrReq);
+    }
+
+    public String testKon(){
+        getData();
+        return datanya.get(0).getTanggal();
     }
 
     class Adapter2 extends RecyclerView.Adapter<Adapter2.ViewAdapter> {

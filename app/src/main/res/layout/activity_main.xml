@@ -122,7 +122,7 @@
                 android:layout_span="6"
                 android:gravity="center"
                 android:padding="15dp"
-                android:text="Fakultas Teknologi Industri | UAD - 2016 "
+                android:text="Fakultas Teknologi Industri | UAD - 2017 "
                 android:textColor="#000"
                 android:textSize="12dp" />
 

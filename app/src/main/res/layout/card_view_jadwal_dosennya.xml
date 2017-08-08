@@ -17,35 +17,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:id="@+id/lljdwl1">
-
-                <TextView
-                    android:id="@+id/kodekul"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="10dp"
-                    android:paddingTop="5dp"
-                    android:text="Kode Kuliah : "
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="14dp" />
-
-                <TextView
-                    android:id="@+id/kuliahnya"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="5dp"
-                    android:paddingTop="5dp"
-                    android:text="Code Kuliah"
-                    android:textColor="#448AFF" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:id="@+id/lljdwl2"
-                android:layout_below="@+id/lljdwl1"
                 android:orientation="horizontal">
 
                 <TextView
@@ -73,45 +45,13 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/lljdwl6"
-                android:layout_below="@+id/lljdwl2"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/kodedsn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignStart="@+id/kodesem"
-                    android:layout_below="@+id/kodesem"
-                    android:paddingLeft="10dp"
-                    android:paddingTop="10dp"
-                    android:text="Dosen : "
-                    android:textColor="@color/colorPrimary" />
-
-                <TextView
-                    android:id="@+id/namadosen"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignStart="@+id/semesternya"
-                    android:layout_below="@+id/semesternya"
-                    android:paddingLeft="10dp"
-                    android:paddingTop="10dp"
-                    android:text="Dosen"
-                    android:textColor="#448AFF" />
-
-
-            </LinearLayout>
-
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:id="@+id/lljdwl3"
-                android:layout_below="@+id/lljdwl6">
+                android:layout_below="@+id/lljdwl2">
 
                 <TextView
                     android:id="@+id/kodekel"
@@ -126,7 +66,7 @@
                     android:id="@+id/kelasnya"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="10dp"
+                    android:paddingLeft="0dp"
                     android:paddingTop="10dp"
                     android:text="Kelas"
                     android:textColor="#448AFF" />
@@ -134,7 +74,7 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/lljdwl4"
+                    android:id="@+id/lljdwl"
                     android:orientation="horizontal">
                     <TextView
                         android:id="@+id/kodesks"
@@ -149,7 +89,7 @@
                         android:id="@+id/sksnya"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="5dp"
+                        android:paddingLeft="0dp"
                         android:paddingTop="10dp"
                         android:text="SKS"
                         android:textColor="#448AFF" />
@@ -167,7 +107,7 @@
                         android:id="@+id/jamnya"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="5dp"
+                        android:paddingLeft="0dp"
                         android:paddingTop="10dp"
                         android:text="Jam"
                         android:textColor="#448AFF" />
@@ -185,42 +125,12 @@
                         android:id="@+id/ruangannya"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="5dp"
+                        android:paddingLeft="0dp"
                         android:paddingTop="10dp"
                         android:text="Ruang"
                         android:textColor="#448AFF"/>
 
                 </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/lljdwl5"
-                android:layout_below="@+id/lljdwl3"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/kodesem"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignStart="@+id/kodejm"
-                    android:layout_below="@+id/kodejm"
-                    android:paddingLeft="10dp"
-                    android:paddingTop="10dp"
-                    android:text="Semester : "
-                    android:textColor="@color/colorPrimary" />
-
-                <TextView
-                    android:id="@+id/semesternya"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="5dp"
-                    android:paddingTop="10dp"
-                    android:text="Semester"
-                    android:textColor="#448AFF" />
-
 
             </LinearLayout>
 

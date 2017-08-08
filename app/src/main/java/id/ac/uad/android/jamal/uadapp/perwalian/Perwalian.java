@@ -10,7 +10,7 @@ import id.ac.uad.android.jamal.uadapp.R;
 
 public class Perwalian extends AppCompatActivity implements View.OnClickListener {
 
-    ImageView chat;
+    ImageView chat,mhs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +19,9 @@ public class Perwalian extends AppCompatActivity implements View.OnClickListener
 
         chat = (ImageView) findViewById(R.id.img_chat);
         chat.setOnClickListener(this);
+
+        mhs = (ImageView) findViewById(R.id.img_mhs);
+        mhs.setOnClickListener(this);
     }
 
 
@@ -28,6 +31,11 @@ public class Perwalian extends AppCompatActivity implements View.OnClickListener
             case R.id.img_chat:
                 Intent chat = new Intent(this, ChatDosen.class);
                 startActivity(chat);
+                break;
+            case R.id.img_mhs:
+                Intent mhs = new Intent(this, TranskipNilai.class);
+                startActivity(mhs);
+                break;
         }
     }
 }

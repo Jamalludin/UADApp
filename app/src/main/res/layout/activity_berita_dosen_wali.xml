@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_jadwal_ruang"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="10dp"
     android:paddingLeft="5dp"
     android:paddingRight="5dp"
-    android:paddingBottom="5dp"
-    tools:context="id.ac.uad.android.jamal.uadapp.simeru.JadwalRuang">
+    android:paddingBottom="10dp"
+    tools:context="id.ac.uad.android.jamal.uadapp.perwalian.BeritaDosenWali">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/ruangcard"
+        android:id="@+id/buatberita"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </android.support.v7.widget.RecyclerView>

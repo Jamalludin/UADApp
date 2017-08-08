@@ -8,13 +8,22 @@ import android.widget.TextView;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import id.ac.uad.android.jamal.uadapp.R;
+import id.ac.uad.android.jamal.uadapp.login.Session;
 
 public class ChatDosen extends AppCompatActivity {
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_dosen);
+
+        getSupportActionBar().setTitle("Dosen Pembimbing Akademik");
+        getSupportActionBar().setSubtitle(new Session(this).getDosenwali());
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setIcon(R.drawable.ic_person_black_24dp);
 
         String token = FirebaseInstanceId.getInstance().getToken();
 

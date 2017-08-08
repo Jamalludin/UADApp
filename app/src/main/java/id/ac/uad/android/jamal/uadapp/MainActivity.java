@@ -30,15 +30,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()){
             case R.id.img_perwalian:
                 Intent perwalian = new Intent(this, Perwalian.class);
-                this.startActivity(perwalian);
+                startActivity(perwalian);
                 break;
             case R.id.img_simeru:
                 Intent simeru = new Intent(this, Simeru.class);
-                this.startActivity(simeru);
+                startActivity(simeru);
                 break;
             case R.id.img_tentang:
                 Intent tentang = new Intent(this, Tentang.class);
-                this.startActivity(tentang);
+                startActivity(tentang);
                 break;
         }
     }

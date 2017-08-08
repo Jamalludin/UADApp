@@ -5,11 +5,11 @@ import android.os.Bundle;
 
 import id.ac.uad.android.jamal.uadapp.R;
 
-public class DosenPembimbing extends AppCompatActivity {
+public class TranskipNilai extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dosen_pembimbing);
+        setContentView(R.layout.activity_transkip_nilai);
     }
 }

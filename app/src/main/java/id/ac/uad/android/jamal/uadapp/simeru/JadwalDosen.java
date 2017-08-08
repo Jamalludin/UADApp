@@ -44,9 +44,11 @@ public class JadwalDosen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jadwal_dosen);
 
+
         String[] p = new Session(JadwalDosen.this).getProdi().split(" ");
         String namaProdi = TextUtils.join("%20",p);
-        String JsonURL = "http://perwalian.esy.es/api/dosen_api.php?prodi="+namaProdi;
+
+        String JsonURL = "http://192.168.43.219/simeru/json/prodidosen.php?prodi="+namaProdi;
 
         requestQueue = Volley.newRequestQueue(this);
 
@@ -63,14 +65,12 @@ public class JadwalDosen extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
                         List<Data> datas = new ArrayList<>();
                         try {
-                            JSONArray jsonArray = response.getJSONArray("data_dosen");
+                            JSONArray jsonArray = response.getJSONArray("hasil");
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                                 final Data data = new Data();
-                                data.setNiy(jsonObject.getString("niy"));
-                                data.setNip(jsonObject.getString("nip"));
-                                data.setNidn(jsonObject.getString("nidn"));
-                                data.setNama(jsonObject.getString("nama"));
+                                data.setNiynipnidn(jsonObject.getString("niynipnidn"));
+                                data.setNama(jsonObject.getString("namadosen"));
                                 datas.add(data);
                             }
                         } catch (JSONException e) {
@@ -96,19 +96,21 @@ public class JadwalDosen extends AppCompatActivity {
         }
 
         class Holdernya extends RecyclerView.ViewHolder {
-            TextView niy,nip,nidn, nama;
+            TextView niynipnidn, nama;
 
             public Holdernya(View itemView) {
                 super(itemView);
-                niy = (TextView) itemView.findViewById(R.id.niynya);
-                nip = (TextView) itemView.findViewById(R.id.nipnya);
-                nidn = (TextView) itemView.findViewById(R.id.nidnnya);
+                niynipnidn = (TextView) itemView.findViewById(R.id.iddsn);
                 nama = (TextView) itemView.findViewById(R.id.namadosen);
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
                         Intent i = new Intent(JadwalDosen.this, JadwalNgajarDosen.class);
+                        i.putExtra("niy",niynipnidn.getText().toString());
+                        i.putExtra("nama",nama.getText().toString());
                         startActivity(i);
+
                         Toast.makeText(getApplicationContext() ,nama.getText().toString(),
                                 Toast.LENGTH_SHORT).show();
 
@@ -128,9 +130,7 @@ public class JadwalDosen extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(Holdernya holder, int position) {
-            holder.niy.setText(this.datas.get(position).getNiy());
-            holder.nip.setText(this.datas.get(position).getNip());
-            holder.nidn.setText(this.datas.get(position).getNidn());
+            holder.niynipnidn.setText(this.datas.get(position).getNiynipnidn());
             holder.nama.setText(this.datas.get(position).getNama());
         }
 
@@ -141,47 +141,30 @@ public class JadwalDosen extends AppCompatActivity {
     }
 
     class Data {
-        String niy,nip,nidn,nama;
+        String niynipnidn,nama;
 
         public Data() {
         }
 
-        public Data(String niy, String nip, String nidn, String nama) {
-            this.niy = niy;
-            this.nip = nip;
-            this.nidn = nidn;
+        public Data(String niynipnidn, String nama) {
+            this.niynipnidn = niynipnidn;
             this.nama = nama;
         }
 
-        public String getNiy() {
-            return niy;
+        public String getNiynipnidn() {
+            return niynipnidn;
         }
 
-        public void setNiy(String niy) {
-            this.niy = niy;
-        }
-
-        public String getNip() {
-            return nip;
-        }
-
-        public void setNip(String nip) {
-            this.nip = nip;
-        }
-
-        public String getNidn() {
-            return nidn;
-        }
-
-        public void setNidn(String nidn) {
-            this.nidn = nidn;
+        public void setNiynipnidn(String niynipnidn) {
+            this.niynipnidn = niynipnidn;
         }
 
         public String getNama() {
             return nama;
         }
 
-        public void setNama(String nama) {
+        public void setNama(String nama)
+        {
             this.nama = nama;
         }
     }

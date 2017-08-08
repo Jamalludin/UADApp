@@ -19,7 +19,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.firebase.iid.FirebaseInstanceId;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -50,7 +49,11 @@ public class Login extends AppCompatActivity {
         masuk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new LoginApp().execute();
+
+                String username = nim.getText().toString();
+                String passw = pass.getText().toString();
+
+                new LoginApp(username,passw).execute();
                 sendTokenToServer();
             }
         });
@@ -99,15 +102,17 @@ public class Login extends AppCompatActivity {
     }
 
     class LoginApp extends AsyncTask<Void,Void,String> {
+        private String pass,username;
+        public LoginApp(String username, String pass){
+            this.pass = pass;
+            this.username = username;
+        }
 
         @Override
         protected String doInBackground(Void... voids) {
 
-            String username = nim.getText().toString();
-            String passw = pass.getText().toString();
-
             JsonReq json = new JsonReq();
-            String hasil = json.login(username, passw);
+            String hasil = json.login(this.username, this.pass);
             return hasil;
         }
 
@@ -120,9 +125,10 @@ public class Login extends AppCompatActivity {
                 JSONObject object = new JSONObject(s);
                 String hasil = object.getString("hasil");
                 if(hasil.equals("sukses")){
-                    JSONArray jsonArray = object.getJSONArray("data");
-                    new Session(getApplicationContext()).buatLogin(nim.getText().toString(),
-                            pass.getText().toString(),jsonArray.getJSONObject(0).getString("prodi"));
+                    JSONObject jsonArray = object.getJSONObject("data");
+                    new Session(getApplicationContext()).buatLogin(this.username,
+                            this.pass,jsonArray.getString("program_studi_idprogram_studi"),
+                            jsonArray.getString("dosenwali"),jsonArray.getString("dosen_niynipnidn"));
 
                     Intent masuk = new Intent(Login.this, MainActivity.class);
                     startActivity(masuk);

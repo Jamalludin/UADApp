@@ -7,6 +7,8 @@ import android.support.test.runner.AndroidJUnit4;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import id.ac.uad.android.jamal.uadapp.simeru.Pengumuman;
+
 import static org.junit.Assert.*;
 
 /**
@@ -23,4 +25,12 @@ public class ExampleInstrumentedTest {
 
         assertEquals("id.ac.uad.android.jamal.uadapp", appContext.getPackageName());
     }
+    /*@Test
+    public void testPengumuman() throws Exception{
+
+        Pengumuman pengumuman = (Pengumuman) InstrumentationRegistry.getTargetContext();
+
+        String data = pengumuman.testKon();
+        assertEquals(data, "2016-10-28 19:00:07");
+    }*/
 }
