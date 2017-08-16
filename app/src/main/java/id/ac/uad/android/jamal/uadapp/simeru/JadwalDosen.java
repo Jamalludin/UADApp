@@ -33,11 +33,15 @@ import java.util.List;
 
 import id.ac.uad.android.jamal.uadapp.R;
 import id.ac.uad.android.jamal.uadapp.login.Session;
+import id.ac.uad.android.jamal.uadapp.pojo.SetListDosen;
+
+import static id.ac.uad.android.jamal.uadapp.pojo.Url.url;
 
 public class JadwalDosen extends AppCompatActivity {
 
     RequestQueue requestQueue;
     private RecyclerView recyclerView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,10 +49,17 @@ public class JadwalDosen extends AppCompatActivity {
         setContentView(R.layout.activity_jadwal_dosen);
 
 
-        String[] p = new Session(JadwalDosen.this).getProdi().split(" ");
-        String namaProdi = TextUtils.join("%20",p);
+        /*String[] p = new Session(JadwalDosen.this).getProdi().split(" ");
+        String namaProdi = TextUtils.join("%20",p);*/
 
-        String JsonURL = "http://192.168.43.219/simeru/json/prodidosen.php?prodi="+namaProdi;
+        Session namapro =  new Session(this);
+        String namaprodi = namapro.getNamaprodi();
+        getSupportActionBar().setTitle("Jadwal Dosen UAD");
+        getSupportActionBar().setSubtitle(namaprodi);
+
+        Session prodi = new Session(this);
+        String idprodi = prodi.getProdi();
+        String JsonURL = url+"/simeru/json/prodidosen.php?prodi="+idprodi;
 
         requestQueue = Volley.newRequestQueue(this);
 
@@ -63,12 +74,12 @@ public class JadwalDosen extends AppCompatActivity {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        List<Data> datas = new ArrayList<>();
+                        List<SetListDosen> datas = new ArrayList<>();
                         try {
                             JSONArray jsonArray = response.getJSONArray("hasil");
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                                final Data data = new Data();
+                                final SetListDosen data = new SetListDosen();
                                 data.setNiynipnidn(jsonObject.getString("niynipnidn"));
                                 data.setNama(jsonObject.getString("namadosen"));
                                 datas.add(data);
@@ -89,9 +100,9 @@ public class JadwalDosen extends AppCompatActivity {
     }
 
     class Adapter extends RecyclerView.Adapter<Adapter.Holdernya> {
-        private List<Data> datas;
+        private List<SetListDosen> datas;
 
-        Adapter(List<Data> datas) {
+        Adapter(List<SetListDosen> datas) {
             this.datas = datas;
         }
 
@@ -140,32 +151,4 @@ public class JadwalDosen extends AppCompatActivity {
         }
     }
 
-    class Data {
-        String niynipnidn,nama;
-
-        public Data() {
-        }
-
-        public Data(String niynipnidn, String nama) {
-            this.niynipnidn = niynipnidn;
-            this.nama = nama;
-        }
-
-        public String getNiynipnidn() {
-            return niynipnidn;
-        }
-
-        public void setNiynipnidn(String niynipnidn) {
-            this.niynipnidn = niynipnidn;
-        }
-
-        public String getNama() {
-            return nama;
-        }
-
-        public void setNama(String nama)
-        {
-            this.nama = nama;
-        }
-    }
 }

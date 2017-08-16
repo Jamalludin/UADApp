@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">UadApp</string>
+    <string name="app_name">UAD Student App</string>
     <string name="action_settings">Settings</string>
     <string name="hint_nim">Nomor Induk Mahasiswa</string>
     <string name="hint_password">Password</string>

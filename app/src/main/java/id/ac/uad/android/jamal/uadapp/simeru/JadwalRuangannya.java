@@ -1,5 +1,6 @@
 package id.ac.uad.android.jamal.uadapp.simeru;
 
+import android.content.Context;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -8,49 +9,117 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import id.ac.uad.android.jamal.uadapp.R;
-import id.ac.uad.android.jamal.uadapp.simeru.fragmentruang.RuangJumat;
-import id.ac.uad.android.jamal.uadapp.simeru.fragmentruang.RuangKamis;
-import id.ac.uad.android.jamal.uadapp.simeru.fragmentruang.RuangRabu;
-import id.ac.uad.android.jamal.uadapp.simeru.fragmentruang.RuangSabtu;
-import id.ac.uad.android.jamal.uadapp.simeru.fragmentruang.RuangSelasa;
-import id.ac.uad.android.jamal.uadapp.simeru.fragmentruang.RuangSenin;
+import id.ac.uad.android.jamal.uadapp.pojo.SetRuangKuliah;
+import id.ac.uad.android.jamal.uadapp.simeru.fragmentjadwalkuliah.JadwalKuliahFragment;
+import id.ac.uad.android.jamal.uadapp.simeru.fragmentruang.JadwalRuangFragment;
+
+import static id.ac.uad.android.jamal.uadapp.pojo.Url.url;
 
 public class JadwalRuangannya extends AppCompatActivity {
 
     private TabLayout ruanglayout;
     private Toolbar toolbarruang;
     private ViewPager viewPagerruang;
+    private RequestQueue requestQueue;
+    private String ruang = null;
+    public static Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jadwal_ruangannya);
 
-        toolbarruang = (Toolbar) findViewById(R.id.toolbarruang);
+        context = JadwalRuangannya.this;
+        requestQueue = Volley.newRequestQueue(this);
+
+        toolbarruang = (Toolbar) findViewById(R.id.truang);
         setSupportActionBar(toolbarruang);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         viewPagerruang = (ViewPager)findViewById(R.id.ruangpager);
-        aturViewPager(viewPagerruang);
+        ruanglayout = (TabLayout)findViewById(R.id.tabruang);
 
-        ruanglayout = (TabLayout)findViewById(R.id.tabjadwalruang);
-        ruanglayout.setupWithViewPager(viewPagerruang);
+        ruang = getIntent().getStringExtra("idruang");
+        getSupportActionBar().setTitle("Ruang : "+ruang);
+
+        getData();
     }
 
-    private void aturViewPager(ViewPager viewPager){
-        AturAdapter atur = new AturAdapter(getSupportFragmentManager());
-        atur.AddAdapter(new RuangSenin(),"Senin");
-        atur.AddAdapter(new RuangSelasa(),"Selasa");
-        atur.AddAdapter(new RuangRabu(),"Rabu");
-        atur.AddAdapter(new RuangKamis(),"Kamis");
-        atur.AddAdapter(new RuangJumat(),"Jumat");
-        atur.AddAdapter(new RuangSabtu(),"Sabtu");
-        viewPager.setAdapter(atur);
+    public void getData(){
+
+        StringRequest Req = new StringRequest(url+"/simeru/json/jadwalruang.php?ruang="+ruang, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                List<String> haristring = new ArrayList<>();
+                List<Fragment> hariFragment = new ArrayList<>();
+
+                try {
+
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONObject hasil = jsonObject.getJSONObject("hasil");
+                    Iterator<String> stringIterator = hasil.keys();
+
+                    while (stringIterator.hasNext()) {
+                        haristring.add(stringIterator.next());
+                    }
+
+                    for (String s : haristring) {
+                        JSONArray jsonArrayHari = hasil.getJSONArray(s);
+                        List<SetRuangKuliah> jadwaSetRuangKuliahs = new ArrayList<>();
+                        for (int i = 0; i < jsonArrayHari.length(); i++) {
+                            JSONObject object = jsonArrayHari.getJSONObject(i);
+                            SetRuangKuliah setJadwalKuliah = new SetRuangKuliah();
+                            setJadwalKuliah.kodekuliru = object.getString("idmatakuliah");
+                            setJadwalKuliah.matakuliahru = object.getString("namakul");
+                            setJadwalKuliah.dosenkuliahru = object.getString("namadosen");
+                            setJadwalKuliah.skskuliahru = object.getString("sks");
+                            setJadwalKuliah.kelaskuliahru = object.getString("kelas");
+                            setJadwalKuliah.jamkuliahru = object.getString("jam");
+                            setJadwalKuliah.prodi = object.getString("namaprodi");
+                            setJadwalKuliah.semesterkuliahru = object.getString("semester");
+                            jadwaSetRuangKuliahs.add(setJadwalKuliah);
+                        }
+
+                        Fragment fragment = new JadwalRuangFragment();
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("data", (Serializable) jadwaSetRuangKuliahs);
+                        fragment.setArguments(bundle);
+                        hariFragment.add(fragment);
+                    }
+
+                    AturAdapter viewpagerAdapter = new AturAdapter(getSupportFragmentManager(),
+                            haristring, hariFragment);
+                    viewPagerruang.setAdapter(viewpagerAdapter);
+                    ruanglayout.setupWithViewPager(viewPagerruang);
+
+                } catch (Exception e) {
+
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(JadwalRuangannya.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        requestQueue.add(Req);
     }
 
     class AturAdapter extends FragmentStatePagerAdapter{
@@ -58,15 +127,12 @@ public class JadwalRuangannya extends AppCompatActivity {
         private List<Fragment> listfr = new ArrayList<>();
         private List<String> hari = new ArrayList<>();
 
-        public AturAdapter(FragmentManager fm) {
+        public AturAdapter(FragmentManager fm, List<String> hari, List<Fragment> fragments) {
             super(fm);
+            this.hari = hari;
+            this.listfr = fragments;
         }
 
-        public void AddAdapter (Fragment fragment,String harinya){
-            listfr.add(fragment);
-            hari.add(harinya);
-
-        }
 
         @Override
         public int getCount() {

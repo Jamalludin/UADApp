@@ -27,13 +27,18 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import id.ac.uad.android.jamal.uadapp.MainActivity;
 import id.ac.uad.android.jamal.uadapp.R;
+import id.ac.uad.android.jamal.uadapp.pojo.Ruang;
+
+import static id.ac.uad.android.jamal.uadapp.pojo.Url.url;
 
 public class JadwalRuangKuliah extends AppCompatActivity {
 
     private RecyclerView Rview;
-    String JsonURL = "";
     RequestQueue reqQueue;
+    private String kampus = null;
+    private String namakampus = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,18 +51,23 @@ public class JadwalRuangKuliah extends AppCompatActivity {
         RecyclerView.LayoutManager mlayout = new LinearLayoutManager(this);
         Rview.setLayoutManager(mlayout);
 
+        namakampus = getIntent().getStringExtra("namakampus");
+        getSupportActionBar().setTitle(namakampus);
+
+
+        kampus = getIntent().getStringExtra("idkampus");
+        String JsonURL = url+"/simeru/json/listruang.php?kampus_idkampus="+kampus;
         JsonObjectRequest jreq = new JsonObjectRequest(JsonURL, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 List<Ruang> ruangnya = new ArrayList<>();
                 try {
-                    JSONArray jsonArray = response.getJSONArray("");
+                    JSONArray jsonArray = response.getJSONArray("Ruang");
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         Ruang data = new Ruang();
-                        data.setIdruang(jsonObject.getString(""));
-                        data.setRuang(jsonObject.getString(""));
-                        data.setKapasitas(jsonObject.getString(""));
+                        data.setIdruang(jsonObject.getString("idruang"));
+                        data.setKapasitas(jsonObject.getString("kapasitas"));
                         ruangnya.add(data);
                     }
                 } catch (JSONException e) {
@@ -83,6 +93,7 @@ public class JadwalRuangKuliah extends AppCompatActivity {
         class Vadapter extends RecyclerView.ViewHolder{
 
             TextView namaR,kapasitasR;
+
             public Vadapter(View itemView) {
                 super(itemView);
 
@@ -94,9 +105,10 @@ public class JadwalRuangKuliah extends AppCompatActivity {
                     public void onClick(View v) {
 
                         Intent i = new Intent(JadwalRuangKuliah.this, JadwalRuangannya.class);
+                        i.putExtra("idruang",namaR.getText().toString());
                         startActivity(i);
 
-                        Toast.makeText(JadwalRuangKuliah.this, "", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(JadwalRuangKuliah.this, namaR.getText(), Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -115,7 +127,7 @@ public class JadwalRuangKuliah extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(Vadapter holder, int position) {
-            holder.namaR.setText(isiRuang.get(position).getRuang());
+            holder.namaR.setText(isiRuang.get(position).getIdruang());
             holder.kapasitasR.setText(isiRuang.get(position).getKapasitas());
         }
 
@@ -125,34 +137,5 @@ public class JadwalRuangKuliah extends AppCompatActivity {
         }
     }
 
-    class Ruang{
-        String idruang, ruang, kapasitas;
 
-        public Ruang() {
-        }
-
-        public String getIdruang() {
-            return idruang;
-        }
-
-        public void setIdruang(String idruang) {
-            this.idruang = idruang;
-        }
-
-        public String getRuang() {
-            return ruang;
-        }
-
-        public void setRuang(String ruang) {
-            this.ruang = ruang;
-        }
-
-        public String getKapasitas() {
-            return kapasitas;
-        }
-
-        public void setKapasitas(String kapasitas) {
-            this.kapasitas = kapasitas;
-        }
-    }
 }

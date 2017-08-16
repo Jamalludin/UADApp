@@ -5,12 +5,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import id.ac.uad.android.jamal.uadapp.login.Login;
+import id.ac.uad.android.jamal.uadapp.login.Session;
 import id.ac.uad.android.jamal.uadapp.perwalian.Perwalian;
 import id.ac.uad.android.jamal.uadapp.simeru.Simeru;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    ImageView perwalian,simeru,tentang;
+    ImageView perwalian,simeru,tentang,keluar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,9 +23,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         perwalian = (ImageView) findViewById(R.id.img_perwalian);
         simeru =(ImageView)findViewById(R.id.img_simeru);
         tentang =(ImageView)findViewById(R.id.img_tentang);
+        keluar = (ImageView)findViewById(R.id.img_keluar);
         perwalian.setOnClickListener(this);
         simeru.setOnClickListener(this);
         tentang.setOnClickListener(this);
+        keluar.setOnClickListener(this);
     }
 
     @Override
@@ -39,6 +44,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.img_tentang:
                 Intent tentang = new Intent(this, Tentang.class);
                 startActivity(tentang);
+                break;
+            case R.id.img_keluar:
+                Session keluar = new Session(this);
+                keluar.keluar();
+                Intent back = new Intent(this, Login.class);
+                startActivity(back);
+                finish();
                 break;
         }
     }

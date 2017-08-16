@@ -127,11 +127,15 @@ public class Login extends AppCompatActivity {
                 if(hasil.equals("sukses")){
                     JSONObject jsonArray = object.getJSONObject("data");
                     new Session(getApplicationContext()).buatLogin(this.username,
-                            this.pass,jsonArray.getString("program_studi_idprogram_studi"),
-                            jsonArray.getString("dosenwali"),jsonArray.getString("dosen_niynipnidn"));
+                            this.pass,
+                            jsonArray.getString("idprogram_studi"),
+                            jsonArray.getString("dosenwali"),
+                            jsonArray.getString("dosen_niynipnidn"),
+                            jsonArray.getString("namaprodi"));
 
                     Intent masuk = new Intent(Login.this, MainActivity.class);
                     startActivity(masuk);
+
                     Toast.makeText(Login.this, "Selamat Datang ", Toast.LENGTH_SHORT).show();
                     finish();
                 }else{

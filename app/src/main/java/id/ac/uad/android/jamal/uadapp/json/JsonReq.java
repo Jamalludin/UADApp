@@ -8,6 +8,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import id.ac.uad.android.jamal.uadapp.pojo.Url;
+
 /**
  * Created by jamal on 31/10/16.
  */
@@ -26,7 +28,7 @@ public class JsonReq {
     }
 
     public String login(String nim, String password){
-        String url = "http://192.168.43.219/simeru/json/mhs_login.php";
+        String url = Url.url+"/simeru/json/mhs_login.php";
 
         try {
             URL obj = new URL(url);

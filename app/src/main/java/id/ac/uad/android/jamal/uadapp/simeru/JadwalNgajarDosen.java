@@ -1,5 +1,6 @@
 package id.ac.uad.android.jamal.uadapp.simeru;
 
+import android.content.Context;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -8,7 +9,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -21,19 +21,14 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
-import id.ac.uad.android.jamal.uadapp.Jadwal;
+import id.ac.uad.android.jamal.uadapp.pojo.SetJadwalDosen;
 import id.ac.uad.android.jamal.uadapp.R;
-import id.ac.uad.android.jamal.uadapp.simeru.fragmentdosen.DosenJumat;
-import id.ac.uad.android.jamal.uadapp.simeru.fragmentdosen.DosenKamis;
-import id.ac.uad.android.jamal.uadapp.simeru.fragmentdosen.DosenRabu;
-import id.ac.uad.android.jamal.uadapp.simeru.fragmentdosen.DosenSabtu;
-import id.ac.uad.android.jamal.uadapp.simeru.fragmentdosen.DosenSelasa;
-import id.ac.uad.android.jamal.uadapp.simeru.fragmentdosen.DosenSenin;
-import id.ac.uad.android.jamal.uadapp.simeru.fragmentkuliah.SeninFragment;
+import id.ac.uad.android.jamal.uadapp.simeru.fragmentdosen.JadwalDosenNgajar;
+
+import static id.ac.uad.android.jamal.uadapp.pojo.Url.url;
 
 public class JadwalNgajarDosen extends AppCompatActivity {
 
@@ -43,15 +38,14 @@ public class JadwalNgajarDosen extends AppCompatActivity {
     private RequestQueue requestQueue;
     private String niy = null;
     private String nama = null;
-    Map<String,List<Jadwal>> jadwal;
-    private List<String> hariStringList;
+    public static Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jadwal_ngajar_dosen);
 
-        niy = getIntent().getStringExtra("niy");
+        context = JadwalNgajarDosen.this;
         nama = getIntent().getStringExtra("nama");
 
         requestQueue = Volley.newRequestQueue(this);
@@ -61,179 +55,87 @@ public class JadwalNgajarDosen extends AppCompatActivity {
         getSupportActionBar().setTitle("Jadwal Dosen UAD");
         getSupportActionBar().setSubtitle(nama);
 
-        hariStringList = new ArrayList<>();
+
         viewPagerdosen = (ViewPager)findViewById(R.id.dosenpager);
-
         dosenlayout = (TabLayout)findViewById(R.id.tabjadwaldosen);
-        dosenlayout.setupWithViewPager(viewPagerdosen);
 
+        getData();
+    }
+
+    public void getData(){
 
         niy = getIntent().getStringExtra("niy");
-        jadwal = new HashMap<>();
-        StringRequest stringRequest = new StringRequest("http://192.168.43.219/simeru/json/jadwaldosen.php?niy="+niy
-                , new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(url + "/simeru/json/jadwaldosen.php?niy=" + niy, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                try{
-                    JSONObject jsonObject1 = new JSONObject(response);
-                    JSONObject jsonObject  = jsonObject1.getJSONObject("hasil");
 
-                    if(jsonObject.has("Senin")){
-                        JSONArray senin = jsonObject.getJSONArray("Senin");
-                        List<Jadwal> jadwalList = new ArrayList<>();
-                        for(int i = 0;i < senin.length();i++){
-                            JSONObject object = senin.getJSONObject(i);
-                            Jadwal jadwal = new Jadwal();
-                            jadwal.jam = object.getString("jam");
-                            jadwal.kelas = object.getString("kelas");
-                            jadwal.namakul = object.getString("namakul");
-                            jadwal.sks  = object.getString("sks");
-                            jadwal.ruang = object.getString("ruang_idruang");
-                            jadwalList.add(jadwal);
-                        }
-                        hariStringList.add("Senin");
-                        jadwal.put("Senin",jadwalList);
+                List<String> haristring = new ArrayList<>();
+                List<Fragment> hariFragment = new ArrayList<>();
+
+                try {
+
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONObject hasil = jsonObject.getJSONObject("hasil");
+                    Iterator<String> stringIterator = hasil.keys();
+
+                    while (stringIterator.hasNext()) {
+                        haristring.add(stringIterator.next());
                     }
 
-                    if(jsonObject.has("Selasa")){
-                        JSONArray senin = jsonObject.getJSONArray("Selasa");
-                        List<Jadwal> jadwalList = new ArrayList<>();
-                        for(int i = 0;i < senin.length();i++){
-                            JSONObject object = senin.getJSONObject(i);
-                            Jadwal jadwal = new Jadwal();
-                            jadwal.jam = object.getString("jam");
-                            jadwal.kelas = object.getString("kelas");
-                            jadwal.namakul = object.getString("namakul");
-                            jadwal.sks  = object.getString("sks");
-                            jadwal.ruang = object.getString("ruang_idruang");
-                            jadwalList.add(jadwal);
+                    for (String s : haristring) {
+
+                        JSONArray jsonHari = hasil.getJSONArray(s);
+                        List<SetJadwalDosen> jadwalDosens = new ArrayList<>();
+
+                        for (int i = 0; i < jsonHari.length(); i++) {
+
+                            JSONObject object = jsonHari.getJSONObject(i);
+                            SetJadwalDosen jadwalDosen = new SetJadwalDosen();
+                            jadwalDosen.namakul = object.getString("namakul");
+                            jadwalDosen.kelas = object.getString("kelas");
+                            jadwalDosen.sks = object.getString("sks");
+                            jadwalDosen.jam = object.getString("jam");
+                            jadwalDosen.ruang = object.getString("ruang_idruang");
+
+                            jadwalDosens.add(jadwalDosen);
                         }
-                        hariStringList.add("Selasa");
-                        jadwal.put("Selasa",jadwalList);
 
-
-
+                        Fragment fragment = new JadwalDosenNgajar();
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("data", (Serializable) jadwalDosens);
+                        fragment.setArguments(bundle);
+                        hariFragment.add(fragment);
                     }
 
-                    if(jsonObject.has("Rabu")){
+                    AturAdapter viewpagerAdapter = new AturAdapter(getSupportFragmentManager(),
+                            haristring, hariFragment);
+                    viewPagerdosen.setAdapter(viewpagerAdapter);
+                    dosenlayout.setupWithViewPager(viewPagerdosen);
 
-                        JSONArray senin = jsonObject.getJSONArray("Rabu");
-                        List<Jadwal> jadwalList = new ArrayList<>();
-                        for(int i = 0;i < senin.length();i++){
-                            JSONObject object = senin.getJSONObject(i);
-                            Jadwal jadwal = new Jadwal();
-                            jadwal.jam = object.getString("jam");
-                            jadwal.kelas = object.getString("kelas");
-                            jadwal.namakul = object.getString("namakul");
-                            jadwal.sks  = object.getString("sks");
-                            jadwal.ruang = object.getString("ruang_idruang");
-                            jadwalList.add(jadwal);
-                        }
-                        hariStringList.add("Rabu");
-                        jadwal.put("Rabu",jadwalList);
+                } catch (Exception e) {
 
-                    }
-
-                    if(jsonObject.has("Kamis")){
-
-                        JSONArray senin = jsonObject.getJSONArray("Kamis");
-                        List<Jadwal> jadwalList = new ArrayList<>();
-                        for(int i = 0;i < senin.length();i++){
-                            JSONObject object = senin.getJSONObject(i);
-                            Jadwal jadwal = new Jadwal();
-                            jadwal.jam = object.getString("jam");
-                            jadwal.kelas = object.getString("kelas");
-                            jadwal.namakul = object.getString("namakul");
-                            jadwal.sks  = object.getString("sks");
-                            jadwal.ruang = object.getString("ruang_idruang");
-                            jadwalList.add(jadwal);
-                        }
-                        hariStringList.add("Kamis");
-                        jadwal.put("Kamis",jadwalList);
-                    }
-
-                    if(jsonObject.has("Jumat")){
-
-                        JSONArray senin = jsonObject.getJSONArray("Jumat");
-                        List<Jadwal> jadwalList = new ArrayList<>();
-                        for(int i = 0;i < senin.length();i++){
-                            JSONObject object = senin.getJSONObject(i);
-                            Jadwal jadwal = new Jadwal();
-                            jadwal.jam = object.getString("jam");
-                            jadwal.kelas = object.getString("kelas");
-                            jadwal.namakul = object.getString("namakul");
-                            jadwal.sks  = object.getString("sks");
-                            jadwal.ruang = object.getString("ruang_idruang");
-                            jadwalList.add(jadwal);
-                        }
-                        hariStringList.add("Jumat");
-                        jadwal.put("Jumat",jadwalList);
-
-                    }
-
-                    if(jsonObject.has("Sabtu")){
-
-                        JSONArray senin = jsonObject.getJSONArray("Sabtu");
-                        List<Jadwal> jadwalList = new ArrayList<>();
-                        for(int i = 0;i < senin.length();i++){
-                            JSONObject object = senin.getJSONObject(i);
-                            Jadwal jadwal = new Jadwal();
-                            jadwal.jam = object.getString("jam");
-                            jadwal.kelas = object.getString("kelas");
-                            jadwal.namakul = object.getString("namakul");
-                            jadwal.sks  = object.getString("sks");
-                            jadwal.ruang = object.getString("ruang_idruang");
-                            jadwalList.add(jadwal);
-                        }
-                        hariStringList.add("Sabtu");
-                        jadwal.put("Sabtu",jadwalList);
-
-                    }
-
-                    aturViewPager(viewPagerdosen);
-
-                }catch (Exception e){
-                    Toast.makeText(JadwalNgajarDosen.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(JadwalNgajarDosen.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+
             }
         });
 
         requestQueue.add(stringRequest);
-
     }
 
-
-    private void aturViewPager(ViewPager viewPager){
-
-        AturAdapter setAdapter = new AturAdapter(getSupportFragmentManager());
-        List<Fragment> fragmentList = new ArrayList<>();
-        fragmentList.add(new DosenSenin());
-        fragmentList.add(new DosenKamis());
-
-        for(int i =0;i<hariStringList.size();i++){
-            setAdapter.AddAdapter(fragmentList.get(i),hariStringList.get(i));
-        }
-        viewPager.setAdapter(setAdapter);
-    }
 
     class AturAdapter extends FragmentStatePagerAdapter{
 
         private List<Fragment> listfr = new ArrayList<>();
-        private List<String> hari = new ArrayList<>();
+        private List<String> hari;
 
-        public AturAdapter(FragmentManager fm) {
+        public AturAdapter(FragmentManager fm, List<String> hari, List<Fragment> fragments) {
             super(fm);
-        }
-
-        public void AddAdapter (Fragment fragment,String harinya){
-            listfr.add(fragment);
-
-            hari.add(harinya);
+            this.hari = hari;
+            this.listfr = fragments;
 
         }
 
@@ -249,12 +151,8 @@ public class JadwalNgajarDosen extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            Fragment fragment    = listfr.get(position);
-            List<Jadwal> jadwals = jadwal.get(hariStringList.get(position));
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("data",(Serializable)jadwals);
-            fragment.setArguments(bundle);
-            return fragment;
+
+            return listfr.get(position);
         }
 
         @Override

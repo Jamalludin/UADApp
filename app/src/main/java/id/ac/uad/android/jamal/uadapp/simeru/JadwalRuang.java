@@ -25,11 +25,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import id.ac.uad.android.jamal.uadapp.R;
+import id.ac.uad.android.jamal.uadapp.pojo.Kampus;
+
+import static id.ac.uad.android.jamal.uadapp.pojo.Url.url;
 
 public class JadwalRuang extends AppCompatActivity {
 
     private RecyclerView Rview;
-    String JsonURL = "http://perwalian.esy.es/api/kampus.php";
     RequestQueue reqQueue;
 
     @Override
@@ -43,6 +45,7 @@ public class JadwalRuang extends AppCompatActivity {
         RecyclerView.LayoutManager mlayout = new LinearLayoutManager(this);
         Rview.setLayoutManager(mlayout);
 
+        String JsonURL = url+"/simeru/json/kampus.php";
         JsonObjectRequest arryReq = new JsonObjectRequest(JsonURL, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -52,9 +55,9 @@ public class JadwalRuang extends AppCompatActivity {
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         Kampus data = new Kampus();
-                        data.setId(jsonObject.getString("id"));
-                        data.setNama(jsonObject.getString("nama"));
-                        data.setAlamat(jsonObject.getString("alamat"));
+                        data.setId(jsonObject.getString("idkampus"));
+                        data.setNama(jsonObject.getString("namakampus"));
+                        data.setAlamat(jsonObject.getString("alamatkampus"));
                         kampusnya.add(data);
                     }
                 } catch (JSONException e) {
@@ -77,18 +80,21 @@ public class JadwalRuang extends AppCompatActivity {
         List<Kampus> isikampusnya;
 
         class ViewAdapter extends RecyclerView.ViewHolder{
-            TextView namakmps,alamatkmps;
+            TextView namakmps,alamatkmps,idkmps;
 
             public ViewAdapter(View itemView) {
                 super(itemView);
 
                 namakmps = (TextView)itemView.findViewById(R.id.namakmps);
                 alamatkmps = (TextView)itemView.findViewById(R.id.alamatkmps);
+                idkmps = (TextView)itemView.findViewById(R.id.idkmpus);
 
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent i = new Intent(JadwalRuang.this, JadwalRuangKuliah.class);
+                        i.putExtra("idkampus",idkmps.getText().toString());
+                        i.putExtra("namakampus",namakmps.getText().toString());
                         startActivity(i);
 
                         Toast.makeText(getApplicationContext(),namakmps.getText().toString(),
@@ -111,8 +117,10 @@ public class JadwalRuang extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(ViewAdapter holder, int position) {
+            holder.idkmps.setText(isikampusnya.get(position).getId());
             holder.namakmps.setText(isikampusnya.get(position).getNama());
             holder.alamatkmps.setText(isikampusnya.get(position).getAlamat());
+
         }
 
         @Override
@@ -121,35 +129,4 @@ public class JadwalRuang extends AppCompatActivity {
         }
     }
 
-    class Kampus {
-        String nama, alamat, id;
-
-        public Kampus() {
-        }
-
-
-        public String getNama() {
-            return nama;
-        }
-
-        public void setNama(String nama) {
-            this.nama = nama;
-        }
-
-        public String getAlamat() {
-            return alamat;
-        }
-
-        public void setAlamat(String alamat) {
-            this.alamat = alamat;
-        }
-
-        public String getId() {
-            return id;
-        }
-
-        public void setId(String id) {
-            this.id = id;
-        }
-    }
 }

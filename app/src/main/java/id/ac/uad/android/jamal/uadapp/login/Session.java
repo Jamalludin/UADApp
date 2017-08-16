@@ -13,14 +13,15 @@ public class Session {
         this.context = context;
     }
 
-    public void buatLogin(String username,String password,String prodi,String dosenwali,String niy){
+    public void buatLogin(String username,String password,String prodi,String dosenwali,String niy,String namaprodi){
         SharedPreferences preferences = this.context.getSharedPreferences("login",Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("nim",username);
-        editor.putString("prodi",prodi);
-        editor.putString("niy",niy);
-        editor.putString("dosenwali",dosenwali);
         editor.putString("password",password);
+        editor.putString("idprogram_studi",prodi);
+        editor.putString("namaprodi",namaprodi);
+        editor.putString("dosen_niynipnidn",niy);
+        editor.putString("dosenwali",dosenwali);
         editor.commit();
     }
     public String getDosenNiy(){
@@ -35,12 +36,17 @@ public class Session {
 
     public String getProdi(){
         SharedPreferences preferences = this.context.getSharedPreferences("login",Context.MODE_PRIVATE);
-        return preferences.getString("prodi",null);
+        return preferences.getString("idprogram_studi",null);
     }
 
     public String getDosenwali(){
         SharedPreferences preferences = this.context.getSharedPreferences("login",Context.MODE_PRIVATE);
         return preferences.getString("dosenwali",null);
+    }
+
+    public String getNamaprodi(){
+        SharedPreferences preferences = this.context.getSharedPreferences("login",Context.MODE_PRIVATE);
+        return preferences.getString("namaprodi",null);
     }
 
     public void keluar(){

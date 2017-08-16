@@ -46,6 +46,13 @@
                 android:layout_below="@+id/namakmps"
                 android:layout_toEndOf="@+id/gambar" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/idkmpus"
+                android:text="sad"
+                android:visibility="invisible"/>
+
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 

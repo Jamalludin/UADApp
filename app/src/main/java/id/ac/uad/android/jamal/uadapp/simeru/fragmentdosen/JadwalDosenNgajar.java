@@ -9,28 +9,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
-import id.ac.uad.android.jamal.uadapp.Jadwal;
+import id.ac.uad.android.jamal.uadapp.pojo.SetJadwalDosen;
 import id.ac.uad.android.jamal.uadapp.R;
-import id.ac.uad.android.jamal.uadapp.simeru.fragmentkuliah.SeninFragment;
 
 /**
  * Created by jamal on 13/04/17.
  */
 
-public class DosenSenin extends Fragment {
+public class JadwalDosenNgajar extends Fragment {
 
-    List<Jadwal> jadwals = new ArrayList<>();
 
-    public DosenSenin() {
+    public JadwalDosenNgajar() {
     }
 
     @Override
@@ -41,25 +33,21 @@ public class DosenSenin extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.dosen_senin, container,false);
-    }
+        View view = inflater.inflate(R.layout.dosen_senin, container,false);
 
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        List<Jadwal> jadwals = (List<Jadwal>) getArguments().getSerializable("data");
-
-        AdapterSenin adapternya = new AdapterSenin(jadwals);
-        RecyclerView recyclerView = (RecyclerView)getActivity().findViewById(R.id.carddsnsenin);
+        List<SetJadwalDosen> setJadwalDosens = (List<SetJadwalDosen>) getArguments().getSerializable("data");
+        AdapterSenin adapternya = new AdapterSenin(setJadwalDosens);
+        RecyclerView recyclerView = (RecyclerView)view.findViewById(R.id.carddsnsenin);
         RecyclerView.LayoutManager setmanager = new LinearLayoutManager(getActivity().getApplicationContext());
         recyclerView.setLayoutManager(setmanager);
         recyclerView.setAdapter(adapternya);
+
+        return view;
     }
 
     class AdapterSenin extends RecyclerView.Adapter<AdapterSenin.ViewSenin>{
 
-        List<Jadwal> isiDatanya;
+        List<SetJadwalDosen> isiDatanya;
 
         class ViewSenin extends RecyclerView.ViewHolder{
 
@@ -77,8 +65,7 @@ public class DosenSenin extends Fragment {
             }
         }
 
-
-        AdapterSenin(List<Jadwal> data){
+        AdapterSenin(List<SetJadwalDosen> data){
             isiDatanya = data;
         }
 
