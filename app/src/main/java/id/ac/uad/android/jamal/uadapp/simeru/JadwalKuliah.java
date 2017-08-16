@@ -48,7 +48,7 @@ public class JadwalKuliah extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jadwal_kuliah);
 
-        final Session namaprodi = new Session(this);
+        Session namaprodi = new Session(this);
         String prodi = namaprodi.getNamaprodi();
 
         contek = JadwalKuliah.this;

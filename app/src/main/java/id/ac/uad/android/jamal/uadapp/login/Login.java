@@ -131,7 +131,8 @@ public class Login extends AppCompatActivity {
                             jsonArray.getString("idprogram_studi"),
                             jsonArray.getString("dosenwali"),
                             jsonArray.getString("dosen_niynipnidn"),
-                            jsonArray.getString("namaprodi"));
+                            jsonArray.getString("namaprodi"),
+                            jsonArray.getString("nama"));
 
                     Intent masuk = new Intent(Login.this, MainActivity.class);
                     startActivity(masuk);

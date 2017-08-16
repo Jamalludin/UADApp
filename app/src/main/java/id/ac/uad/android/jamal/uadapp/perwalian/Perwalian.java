@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import id.ac.uad.android.jamal.uadapp.R;
+import id.ac.uad.android.jamal.uadapp.login.Session;
 
 public class Perwalian extends AppCompatActivity implements View.OnClickListener {
 
@@ -16,6 +17,15 @@ public class Perwalian extends AppCompatActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perwalian);
+
+        Session namamhs = new Session(this);
+        String nama = namamhs.getNama();
+
+        Session prodi = new Session(this);
+        String prodimhs = prodi.getNamaprodi();
+
+        getSupportActionBar().setTitle("Perwalian Mahasiswa");
+        getSupportActionBar().setSubtitle(nama+" "+prodimhs);
 
         chat = (ImageView) findViewById(R.id.img_chat);
         chat.setOnClickListener(this);

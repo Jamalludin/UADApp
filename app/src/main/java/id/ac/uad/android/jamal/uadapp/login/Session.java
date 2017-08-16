@@ -13,7 +13,7 @@ public class Session {
         this.context = context;
     }
 
-    public void buatLogin(String username,String password,String prodi,String dosenwali,String niy,String namaprodi){
+    public void buatLogin(String username,String password,String prodi,String dosenwali,String niy,String namaprodi,String nama){
         SharedPreferences preferences = this.context.getSharedPreferences("login",Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("nim",username);
@@ -22,6 +22,7 @@ public class Session {
         editor.putString("namaprodi",namaprodi);
         editor.putString("dosen_niynipnidn",niy);
         editor.putString("dosenwali",dosenwali);
+        editor.putString("nama",nama);
         editor.commit();
     }
     public String getDosenNiy(){
@@ -37,6 +38,11 @@ public class Session {
     public String getProdi(){
         SharedPreferences preferences = this.context.getSharedPreferences("login",Context.MODE_PRIVATE);
         return preferences.getString("idprogram_studi",null);
+    }
+
+    public String getNama(){
+        SharedPreferences preferences = this.context.getSharedPreferences("login",Context.MODE_PRIVATE);
+        return preferences.getString("nama",null);
     }
 
     public String getDosenwali(){
