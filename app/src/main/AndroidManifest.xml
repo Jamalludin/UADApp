@@ -66,14 +66,17 @@
         <activity
             android:name=".perwalian.ChatDosen"
             android:theme="@style/AppTheme" />
-        <activity android:name=".simeru.JadwalRuangKuliah"
-            android:theme="@style/AppTheme"/>
+        <activity
+            android:name=".simeru.JadwalRuangKuliah"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".simeru.JadwalRuangannya"
             android:label="Jadwal Ruang"
             android:theme="@style/MyMaterialTheme" />
-        <activity android:name=".perwalian.TranskipNilai" />
-        <activity android:name=".perwalian.BeritaDosenWali"></activity>
+        <activity android:name=".perwalian.TranskipNilai"
+            android:theme="@style/AppTheme"/>
+        <activity android:name=".perwalian.BeritaDosenWali"
+            android:theme="@style/AppTheme"/>
     </application>
 
 </manifest>

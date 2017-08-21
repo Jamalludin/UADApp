@@ -24,13 +24,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import id.ac.uad.android.jamal.uadapp.R;
+import id.ac.uad.android.jamal.uadapp.login.Session;
+import id.ac.uad.android.jamal.uadapp.pojo.PengumumanSimeru;
+
+import static id.ac.uad.android.jamal.uadapp.pojo.Url.url;
 
 public class Pengumuman extends AppCompatActivity {
 
     private RecyclerView Rview;
-    String JsonURL = "http://perwalian.esy.es/api/berita_api.php";
     RequestQueue reqQueue;
-    List<IsiData> datanya;
+    List<PengumumanSimeru> datanya;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,24 +46,30 @@ public class Pengumuman extends AppCompatActivity {
         RecyclerView.LayoutManager mlayout = new LinearLayoutManager(this);
         Rview.setLayoutManager(mlayout);
 
-        getData();
+        Session nim = new Session(this);
+        String idmhs = nim.getNim();
 
+        getData(idmhs);
 
     }
-    public void getData(){
+    public void getData(String mhsnim){
 
+        String JsonURL = url+"/simeru/json/getpostinfo.php?nim="+mhsnim;
         JsonObjectRequest arrReq = new JsonObjectRequest(JsonURL,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         datanya = new ArrayList<>();
                         try {
-                            JSONArray jsonArray = response.getJSONArray("berita");
+                            JSONArray jsonArray = response.getJSONArray("hasil");
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                                IsiData data = new IsiData();
-                                data.setTanggal(jsonObject.getString("time"));
-                                data.setPengumuman(jsonObject.getString("isi_berita"));
+                                PengumumanSimeru data = new PengumumanSimeru();
+                                data.setMatkulps(jsonObject.getString("matakuliah_idmatakuliah"));
+                                data.setKelasps(jsonObject.getString("kelas"));
+                                data.setHarips(jsonObject.getString("hari"));
+                                data.setJamps(jsonObject.getString("jam"));
+                                data.setInfops(jsonObject.getString("keterangan"));
                                 datanya.add(data);
                             }
 
@@ -79,32 +88,26 @@ public class Pengumuman extends AppCompatActivity {
         reqQueue.add(arrReq);
     }
 
-    public String testKon(){
-        getData();
-        return datanya.get(0).getTanggal();
-    }
-
     class Adapter2 extends RecyclerView.Adapter<Adapter2.ViewAdapter> {
-        List<IsiData> isiDatanya;
+        List<PengumumanSimeru> isiDatanya;
 
         class ViewAdapter extends RecyclerView.ViewHolder {
-            TextView tanggal, pengumuman;
+
+            TextView matkul,kls,hari,jam,info;
 
             ViewAdapter(View item) {
                 super(item);
 
-                tanggal = (TextView) item.findViewById(R.id.tanggalnya);
-                pengumuman = (TextView) item.findViewById(R.id.pengumumannya);
-                item.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Toast.makeText(Pengumuman.this, "Pengumuman", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                matkul = (TextView) item.findViewById(R.id.matkulps);
+                kls = (TextView) item.findViewById(R.id.kelaspp);
+                hari = (TextView) item.findViewById(R.id.haripp);
+                jam = (TextView) item.findViewById(R.id.jampp);
+                info = (TextView) item.findViewById(R.id.infopp);
+
             }
         }
 
-        Adapter2(List<IsiData> data) {
+        Adapter2(List<PengumumanSimeru> data) {
             isiDatanya = data;
         }
 
@@ -123,36 +126,12 @@ public class Pengumuman extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(ViewAdapter holder, int position) {
-            holder.tanggal.setText(isiDatanya.get(position).getTanggal());
-            holder.pengumuman.setText(isiDatanya.get(position).getPengumuman());
+            holder.matkul.setText(isiDatanya.get(position).getMatkulps());
+            holder.kls.setText(isiDatanya.get(position).getKelasps());
+            holder.hari.setText(isiDatanya.get(position).getHarips());
+            holder.jam.setText(isiDatanya.get(position).getJamps());
+            holder.info.setText(isiDatanya.get(position).getInfops());
         }
     }
 
-    class IsiData {
-        String tanggal, pengumuman;
-
-        public IsiData() {
-        }
-
-        public IsiData(String tanggal, String pengumuman) {
-            this.tanggal = tanggal;
-            this.pengumuman = pengumuman;
-        }
-
-        public String getTanggal() {
-            return tanggal;
-        }
-
-        public void setTanggal(String tanggal) {
-            this.tanggal = tanggal;
-        }
-
-        public String getPengumuman() {
-            return pengumuman;
-        }
-
-        public void setPengumuman(String pengumuman) {
-            this.pengumuman = pengumuman;
-        }
-    }
 }

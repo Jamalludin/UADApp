@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:padding="5dp"
+    android:layout_marginLeft="5dp"
+    android:weightSum="4">
+
+    <TextView
+        android:id="@+id/kode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Kode" />
+
+    <TextView
+        android:id="@+id/matakuliah"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.6"
+        android:text="Mata Kuliah" />
+
+    <TextView
+        android:id="@+id/sks"
+        android:paddingLeft="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.2"
+        android:text="Sks" />
+
+    <TextView
+        android:id="@+id/nilai"
+        android:paddingLeft="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.2"
+        android:text="Nilai" />
+</LinearLayout>

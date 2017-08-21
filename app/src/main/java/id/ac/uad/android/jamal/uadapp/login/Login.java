@@ -57,6 +57,7 @@ public class Login extends AppCompatActivity {
                 sendTokenToServer();
             }
         });
+
         if(new Session(getApplicationContext()).cekLogin() == true){
             startActivity(new Intent(getApplicationContext(),MainActivity.class));
             finish();
@@ -102,7 +103,9 @@ public class Login extends AppCompatActivity {
     }
 
     class LoginApp extends AsyncTask<Void,Void,String> {
+
         private String pass,username;
+
         public LoginApp(String username, String pass){
             this.pass = pass;
             this.username = username;

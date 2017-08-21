@@ -13,7 +13,8 @@ public class Session {
         this.context = context;
     }
 
-    public void buatLogin(String username,String password,String prodi,String dosenwali,String niy,String namaprodi,String nama){
+    public void buatLogin(String username,String password,String prodi,String dosenwali,String niy,
+                          String namaprodi,String nama){
         SharedPreferences preferences = this.context.getSharedPreferences("login",Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("nim",username);
@@ -25,9 +26,7 @@ public class Session {
         editor.putString("nama",nama);
         editor.commit();
     }
-    public String getDosenNiy(){
-        return this.context.getSharedPreferences("login",Context.MODE_PRIVATE).getString("niy",null);
-    }
+
     public boolean cekLogin(){
         SharedPreferences preferences = this.context.getSharedPreferences("login",Context.MODE_PRIVATE);
         if(preferences.getString("nim",null) != null){
@@ -53,6 +52,11 @@ public class Session {
     public String getNamaprodi(){
         SharedPreferences preferences = this.context.getSharedPreferences("login",Context.MODE_PRIVATE);
         return preferences.getString("namaprodi",null);
+    }
+
+    public String getIdDosen(){
+        SharedPreferences preferences = this.context.getSharedPreferences("login",Context.MODE_PRIVATE);
+        return preferences.getString("dosen_niynipnidn",null);
     }
 
     public void keluar(){
