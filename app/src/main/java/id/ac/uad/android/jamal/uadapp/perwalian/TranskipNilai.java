@@ -25,6 +25,7 @@ import java.util.List;
 
 import id.ac.uad.android.jamal.uadapp.R;
 import id.ac.uad.android.jamal.uadapp.login.Session;
+import id.ac.uad.android.jamal.uadapp.perwalian.callbackperwalian.TranskipCallBack;
 import id.ac.uad.android.jamal.uadapp.pojo.SetTranskip;
 
 import static id.ac.uad.android.jamal.uadapp.pojo.Url.url;
@@ -34,6 +35,7 @@ public class TranskipNilai extends AppCompatActivity {
     private ListView listView;
     private List<SetTranskip> transkips;
     private float ipk;
+    public static Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +43,7 @@ public class TranskipNilai extends AppCompatActivity {
         setContentView(R.layout.activity_transkip_nilai);
 
         listView = (ListView) findViewById(R.id.listranskip);
-
+        context = TranskipNilai.this;
         transkips = new ArrayList<>();
 
         Session nim = new Session(this);
@@ -58,63 +60,69 @@ public class TranskipNilai extends AppCompatActivity {
 
     public void getData(String nim) {
 
-        RequestQueue req = Volley.newRequestQueue(this);
-        StringRequest stringRequest = new StringRequest(url+"/simeru/transkip.php?nim="+nim,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-
-                            int totalNilai = 0;
-                            int totalSks = 0;
-                            int jumlahnilai = 0;
-
-                            JSONArray jsonArray = new JSONArray(response);
-                            for (int i = 0; i < jsonArray.length(); i++) {
-                                JSONObject obj = jsonArray.getJSONObject(i);
-                                SetTranskip transkip = new SetTranskip();
-                                transkip.kodematkul = obj.getString("matakuliah_idmatakuliah");
-                                transkip.namakul = obj.getString("namakul");
-                                transkip.sksmatkul = obj.getString("sks");
-                                transkip.nilaikul = obj.getString("nilai");
-
-                                if (transkip.nilaikul.equals("A")) {
-                                    jumlahnilai = Integer.parseInt(transkip.sksmatkul) * 4;
-                                } else if (transkip.nilaikul.equals("B")) {
-                                    jumlahnilai = Integer.parseInt(transkip.sksmatkul) * 3;
-                                } else if (transkip.nilaikul.equals("C")) {
-                                    jumlahnilai = Integer.parseInt(transkip.sksmatkul) * 2;
-                                } else if (transkip.nilaikul.equals("D")) {
-                                    jumlahnilai = Integer.parseInt(transkip.sksmatkul) * 1;
-                                } else {
-                                    jumlahnilai = Integer.parseInt(transkip.sksmatkul) * 0;
-                                }
-
-                                totalSks += Integer.parseInt(transkip.sksmatkul);
-                                totalNilai += jumlahnilai;
-
-                                transkips.add(transkip);
-                            }
-
-                            ipk = ((float) totalNilai) / ((float) totalSks);
-                            ipk = (float) Math.floor(ipk * 100) / 100;
-                            ((TextView) findViewById(R.id.ipknya)).setText(String.valueOf(ipk));
-
-                            AdapterTranskip adapterTranskip = new AdapterTranskip(transkips, TranskipNilai.this);
-                            listView.setAdapter(adapterTranskip);
-
-                        } catch (Exception e) {
-                            Toast.makeText(TranskipNilai.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                }, new Response.ErrorListener() {
+        TranskipCallBack tc = new TranskipCallBack(context);
+        tc.TranskipCallBack(nim, new TranskipCallBack.TransCallBack() {
             @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(TranskipNilai.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+            public void Result(String result) {
+
+                try {
+
+                    int totalNilai = 0;
+                    int totalSks = 0;
+                    float jumlahnilai;
+
+                    JSONArray jsonArray = new JSONArray(result);
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject obj = jsonArray.getJSONObject(i);
+                        SetTranskip transkip = new SetTranskip();
+                        transkip.kodematkul = obj.getString("matakuliah_idmatakuliah");
+                        transkip.namakul = obj.getString("namakul");
+                        transkip.sksmatkul = obj.getString("sks");
+                        transkip.nilaikul = obj.getString("nilai");
+
+                        if (transkip.nilaikul.equals("A")) {
+                            jumlahnilai = (float) (Integer.parseInt(transkip.sksmatkul) * 4.00);
+                        } else if (transkip.nilaikul.equals("A-")) {
+                            jumlahnilai = (float) (Integer.parseInt(transkip.sksmatkul) * 3.67);
+                        } else if (transkip.nilaikul.equals("B+")) {
+                            jumlahnilai = (float) (Integer.parseInt(transkip.sksmatkul) * 3.33);
+                        } else if (transkip.nilaikul.equals("B")) {
+                            jumlahnilai = (float) (Integer.parseInt(transkip.sksmatkul) * 3.00);
+                        } else if (transkip.nilaikul.equals("B-")) {
+                            jumlahnilai = (float) (Integer.parseInt(transkip.sksmatkul) * 2.67);
+                        } else if (transkip.nilaikul.equals("C+")) {
+                            jumlahnilai = (float) (Integer.parseInt(transkip.sksmatkul) * 2.33);
+                        } else if (transkip.nilaikul.equals("C")) {
+                            jumlahnilai = (float) (Integer.parseInt(transkip.sksmatkul) * 2.00);
+                        } else if (transkip.nilaikul.equals("C-")) {
+                            jumlahnilai = (float) (Integer.parseInt(transkip.sksmatkul) * 1.67);
+                        } else if (transkip.nilaikul.equals("D+")) {
+                            jumlahnilai = (float) (Integer.parseInt(transkip.sksmatkul) * 1.33);
+                        } else if (transkip.nilaikul.equals("D")) {
+                            jumlahnilai = (float) (Integer.parseInt(transkip.sksmatkul) * 1.00);
+                        } else {
+                            jumlahnilai = (float) (Integer.parseInt(transkip.sksmatkul) * 0.00);
+                        }
+
+                        totalSks += Integer.parseInt(transkip.sksmatkul);
+                        totalNilai += jumlahnilai;
+
+                        transkips.add(transkip);
+                    }
+
+                    ipk = ((float) totalNilai) / ((float) totalSks);
+                    ipk = (float) Math.floor(ipk * 100) / 100;
+                    ((TextView) findViewById(R.id.ipknya)).setText(String.valueOf(ipk));
+
+                    AdapterTranskip adapterTranskip = new AdapterTranskip(transkips, TranskipNilai.this);
+                    listView.setAdapter(adapterTranskip);
+
+                } catch (Exception e) {
+                    Toast.makeText(TranskipNilai.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
-
-        req.add(stringRequest);
 
     }
 

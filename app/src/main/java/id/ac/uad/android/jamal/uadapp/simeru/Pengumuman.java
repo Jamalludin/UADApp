@@ -1,5 +1,6 @@
 package id.ac.uad.android.jamal.uadapp.simeru;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -26,21 +27,22 @@ import java.util.List;
 import id.ac.uad.android.jamal.uadapp.R;
 import id.ac.uad.android.jamal.uadapp.login.Session;
 import id.ac.uad.android.jamal.uadapp.pojo.PengumumanSimeru;
+import id.ac.uad.android.jamal.uadapp.simeru.callbacksimeru.PengumumanCallBack;
 
 import static id.ac.uad.android.jamal.uadapp.pojo.Url.url;
 
 public class Pengumuman extends AppCompatActivity {
 
     private RecyclerView Rview;
-    RequestQueue reqQueue;
     List<PengumumanSimeru> datanya;
+    public static Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pengumuman);
 
-        reqQueue = Volley.newRequestQueue(this);
+        context = Pengumuman.this;
         Rview = (RecyclerView) findViewById(R.id.pengumancard);
         Rview.setHasFixedSize(true);
         RecyclerView.LayoutManager mlayout = new LinearLayoutManager(this);
@@ -54,38 +56,37 @@ public class Pengumuman extends AppCompatActivity {
     }
     public void getData(String mhsnim){
 
-        String JsonURL = url+"/simeru/json/getpostinfo.php?nim="+mhsnim;
-        JsonObjectRequest arrReq = new JsonObjectRequest(JsonURL,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        datanya = new ArrayList<>();
-                        try {
-                            JSONArray jsonArray = response.getJSONArray("hasil");
-                            for (int i = 0; i < jsonArray.length(); i++) {
-                                JSONObject jsonObject = jsonArray.getJSONObject(i);
-                                PengumumanSimeru data = new PengumumanSimeru();
-                                data.setMatkulps(jsonObject.getString("matakuliah_idmatakuliah"));
-                                data.setKelasps(jsonObject.getString("kelas"));
-                                data.setHarips(jsonObject.getString("hari"));
-                                data.setJamps(jsonObject.getString("jam"));
-                                data.setInfops(jsonObject.getString("keterangan"));
-                                datanya.add(data);
-                            }
+        PengumumanCallBack pc = new PengumumanCallBack(context);
 
-                        } catch (JSONException e) {
-                            Toast.makeText(Pengumuman.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                        Adapter2 adapter = new Adapter2(datanya);
-                        Rview.setAdapter(adapter);
-                    }
-                }, new Response.ErrorListener() {
+        pc.PengumumanCallBack(mhsnim, new PengumumanCallBack.PngumumanCallback() {
             @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(Pengumuman.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+            public void Result(String result) {
+
+                datanya = new ArrayList<>();
+                try {
+
+                    JSONObject jobj = new JSONObject(result);
+                    JSONArray jsonArray = jobj.getJSONArray("hasil");
+
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        PengumumanSimeru data = new PengumumanSimeru();
+                        data.setMatkulps(jsonObject.getString("matakuliah_idmatakuliah"));
+                        data.setKelasps(jsonObject.getString("kelas"));
+                        data.setHarips(jsonObject.getString("hari"));
+                        data.setJamps(jsonObject.getString("jam"));
+                        data.setInfops(jsonObject.getString("keterangan"));
+                        datanya.add(data);
+                    }
+
+                } catch (JSONException e) {
+                    Toast.makeText(Pengumuman.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+                Adapter2 adapter = new Adapter2(datanya);
+                Rview.setAdapter(adapter);
+
             }
         });
-        reqQueue.add(arrReq);
     }
 
     class Adapter2 extends RecyclerView.Adapter<Adapter2.ViewAdapter> {

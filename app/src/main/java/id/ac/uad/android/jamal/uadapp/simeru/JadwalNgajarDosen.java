@@ -11,9 +11,6 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
@@ -26,9 +23,8 @@ import java.util.List;
 
 import id.ac.uad.android.jamal.uadapp.pojo.SetJadwalDosen;
 import id.ac.uad.android.jamal.uadapp.R;
+import id.ac.uad.android.jamal.uadapp.simeru.callbacksimeru.DosenCallBack;
 import id.ac.uad.android.jamal.uadapp.simeru.fragmentdosen.JadwalDosenNgajar;
-
-import static id.ac.uad.android.jamal.uadapp.pojo.Url.url;
 
 public class JadwalNgajarDosen extends AppCompatActivity {
 
@@ -48,8 +44,6 @@ public class JadwalNgajarDosen extends AppCompatActivity {
         context = JadwalNgajarDosen.this;
         nama = getIntent().getStringExtra("nama");
 
-        requestQueue = Volley.newRequestQueue(this);
-
         toolbardosen = (Toolbar) findViewById(R.id.toolbardosen);
         setSupportActionBar(toolbardosen);
         getSupportActionBar().setTitle("Jadwal Dosen UAD");
@@ -65,16 +59,17 @@ public class JadwalNgajarDosen extends AppCompatActivity {
     public void getData(){
 
         niy = getIntent().getStringExtra("niy");
-        StringRequest stringRequest = new StringRequest(url + "/simeru/json/jadwaldosen.php?niy=" + niy, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
+        DosenCallBack dc = new DosenCallBack(context);
 
+        dc.DosenCallBack(niy, new DosenCallBack.DsnCallback() {
+            @Override
+            public void Result(String result) {
                 List<String> haristring = new ArrayList<>();
                 List<Fragment> hariFragment = new ArrayList<>();
 
                 try {
 
-                    JSONObject jsonObject = new JSONObject(response);
+                    JSONObject jsonObject = new JSONObject(result);
                     JSONObject hasil = jsonObject.getJSONObject("hasil");
                     Iterator<String> stringIterator = hasil.keys();
 
@@ -116,16 +111,8 @@ public class JadwalNgajarDosen extends AppCompatActivity {
 
                 }
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
         });
-
-        requestQueue.add(stringRequest);
     }
-
 
     class AturAdapter extends FragmentStatePagerAdapter{
 

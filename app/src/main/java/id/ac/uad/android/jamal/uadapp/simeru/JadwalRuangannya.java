@@ -9,12 +9,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
@@ -27,17 +23,14 @@ import java.util.List;
 
 import id.ac.uad.android.jamal.uadapp.R;
 import id.ac.uad.android.jamal.uadapp.pojo.SetRuangKuliah;
-import id.ac.uad.android.jamal.uadapp.simeru.fragmentjadwalkuliah.JadwalKuliahFragment;
+import id.ac.uad.android.jamal.uadapp.simeru.callbacksimeru.RuangCallBack;
 import id.ac.uad.android.jamal.uadapp.simeru.fragmentruang.JadwalRuangFragment;
-
-import static id.ac.uad.android.jamal.uadapp.pojo.Url.url;
 
 public class JadwalRuangannya extends AppCompatActivity {
 
     private TabLayout ruanglayout;
     private Toolbar toolbarruang;
     private ViewPager viewPagerruang;
-    private RequestQueue requestQueue;
     private String ruang = null;
     public static Context context;
 
@@ -47,7 +40,6 @@ public class JadwalRuangannya extends AppCompatActivity {
         setContentView(R.layout.activity_jadwal_ruangannya);
 
         context = JadwalRuangannya.this;
-        requestQueue = Volley.newRequestQueue(this);
 
         toolbarruang = (Toolbar) findViewById(R.id.truang);
         setSupportActionBar(toolbarruang);
@@ -61,17 +53,19 @@ public class JadwalRuangannya extends AppCompatActivity {
         getData();
     }
 
-    public void getData(){
+    public void getData() {
 
-        StringRequest Req = new StringRequest(url+"/simeru/json/jadwalruang.php?ruang="+ruang, new Response.Listener<String>() {
+        RuangCallBack rc = new RuangCallBack(context);
+
+        rc.RuangCallBack(ruang, new RuangCallBack.Callback() {
             @Override
-            public void onResponse(String response) {
+            public void Result(String result) {
                 List<String> haristring = new ArrayList<>();
                 List<Fragment> hariFragment = new ArrayList<>();
 
                 try {
 
-                    JSONObject jsonObject = new JSONObject(response);
+                    JSONObject jsonObject = new JSONObject(result);
                     JSONObject hasil = jsonObject.getJSONObject("hasil");
                     Iterator<String> stringIterator = hasil.keys();
 
@@ -112,14 +106,8 @@ public class JadwalRuangannya extends AppCompatActivity {
 
                 }
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(JadwalRuangannya.this, error.getMessage(), Toast.LENGTH_SHORT).show();
-            }
         });
 
-        requestQueue.add(Req);
     }
 
     class AturAdapter extends FragmentStatePagerAdapter{

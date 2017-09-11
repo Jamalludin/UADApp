@@ -12,9 +12,6 @@ import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
@@ -22,24 +19,20 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import id.ac.uad.android.jamal.uadapp.R;
 import id.ac.uad.android.jamal.uadapp.pojo.SetJadwalKuliah;
 import id.ac.uad.android.jamal.uadapp.login.Session;
+import id.ac.uad.android.jamal.uadapp.simeru.callbacksimeru.KuliahCallBack;
 import id.ac.uad.android.jamal.uadapp.simeru.fragmentjadwalkuliah.JadwalKuliahFragment;
-
-import static id.ac.uad.android.jamal.uadapp.pojo.Url.url;
 
 public class JadwalKuliah extends AppCompatActivity {
 
     private Toolbar toolbar;
     private TabLayout tabKuliah;
     private ViewPager viewKuliah;
-    private RequestQueue requestQueue;
     public static Context contek;
 
 
@@ -60,8 +53,6 @@ public class JadwalKuliah extends AppCompatActivity {
         viewKuliah = (ViewPager) findViewById(R.id.viewpager);
         tabKuliah = (TabLayout) findViewById(R.id.tabs);
 
-        requestQueue = Volley.newRequestQueue(this);
-
         getData();
     }
 
@@ -69,20 +60,24 @@ public class JadwalKuliah extends AppCompatActivity {
 
         final Session prodi = new Session(this);
         String kuliah = prodi.getProdi();
-        Toast.makeText(contek, kuliah, Toast.LENGTH_SHORT).show();
-        StringRequest req = new StringRequest(url + "/simeru/json/prodi.php?idprodi="+kuliah, new Response.Listener<String>() {
+
+        KuliahCallBack kc = new KuliahCallBack(contek);
+
+        kc.KuliahCallBack(kuliah, new KuliahCallBack.Callback() {
             @Override
-            public void onResponse(String response) {
+            public void Result(String result) {
+
                 List<String> haristring = new ArrayList<>();
                 List<Fragment> hariFragment = new ArrayList<>();
                 try {
-                    JSONObject jsonObject = new JSONObject(response);
+                    JSONObject jsonObject = new JSONObject(result);
                     JSONObject hasil      = jsonObject.getJSONObject("hasil");
                     Iterator<String> stringIterator = hasil.keys();
 
                     while(stringIterator.hasNext()){
                         haristring.add(stringIterator.next());
                     }
+
                     for(String s : haristring){
                         JSONArray jsonHari = hasil.getJSONArray(s);
                         List<SetJadwalKuliah> jadwalKuliahs = new ArrayList<>();
@@ -115,15 +110,9 @@ public class JadwalKuliah extends AppCompatActivity {
                     Toast.makeText(JadwalKuliah.this, "error "+e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(JadwalKuliah.this, error.getMessage(), Toast.LENGTH_SHORT).show();
-            }
         });
-
-        requestQueue.add(req);
     }
+
     class SetAdapter extends FragmentStatePagerAdapter {
 
         List<Fragment> listfr = new ArrayList<>();
