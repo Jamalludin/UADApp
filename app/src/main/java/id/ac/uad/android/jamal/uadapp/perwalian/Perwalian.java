@@ -42,7 +42,7 @@ public class Perwalian extends AppCompatActivity implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.img_chat:
-                Intent chat = new Intent(this, ChatDosen.class);
+                Intent chat = new Intent(this, TopikPerwalian.class);
                 startActivity(chat);
                 break;
             case R.id.img_mhs:

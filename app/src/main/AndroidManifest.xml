@@ -73,10 +73,17 @@
             android:name=".simeru.JadwalRuangannya"
             android:label="Jadwal Ruang"
             android:theme="@style/MyMaterialTheme" />
-        <activity android:name=".perwalian.TranskipNilai"
+        <activity
+            android:name=".perwalian.TranskipNilai"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".perwalian.BeritaDosenWali"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".perwalian.TopikPerwalian"
             android:theme="@style/AppTheme"/>
-        <activity android:name=".perwalian.BeritaDosenWali"
-            android:theme="@style/AppTheme"/>
+        <activity android:name=".perwalian.TambahTopikPerwalian"
+            android:theme="@style/AppTheme">
+        </activity>
     </application>
 
 </manifest>

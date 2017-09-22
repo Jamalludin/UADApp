@@ -11,9 +11,6 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.Volley;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -25,7 +22,7 @@ import java.util.List;
 import id.ac.uad.android.jamal.uadapp.R;
 import id.ac.uad.android.jamal.uadapp.pojo.SetJadwalKuliah;
 import id.ac.uad.android.jamal.uadapp.login.Session;
-import id.ac.uad.android.jamal.uadapp.simeru.callbacksimeru.KuliahCallBack;
+import id.ac.uad.android.jamal.uadapp.simeru.callbacksimeru.JadwalKuliahCallBack;
 import id.ac.uad.android.jamal.uadapp.simeru.fragmentjadwalkuliah.JadwalKuliahFragment;
 
 public class JadwalKuliah extends AppCompatActivity {
@@ -61,9 +58,9 @@ public class JadwalKuliah extends AppCompatActivity {
         final Session prodi = new Session(this);
         String kuliah = prodi.getProdi();
 
-        KuliahCallBack kc = new KuliahCallBack(contek);
+        JadwalKuliahCallBack jkc = new JadwalKuliahCallBack(contek);
 
-        kc.KuliahCallBack(kuliah, new KuliahCallBack.Callback() {
+        jkc.JadwalKuliahCallBack(kuliah, new JadwalKuliahCallBack.Kuliah() {
             @Override
             public void Result(String result) {
 

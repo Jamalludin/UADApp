@@ -27,7 +27,41 @@ public class JsonReq {
         this.password = password;
     }
 
-    public String login(String nim, String password){
+    public String removeToken(String token){
+
+        try {
+
+            String url = Url.url+"/simeru/keluar.php";
+            URL obj = new URL(url);
+            HttpURLConnection conn = (HttpURLConnection) obj.openConnection();
+            conn.setConnectTimeout(5000);
+            conn.setReadTimeout(5000);
+            conn.setRequestMethod("POST");
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append("token="+token);
+            conn.setDoOutput(true);
+            DataOutputStream out = new DataOutputStream(conn.getOutputStream());
+            out.writeBytes(stringBuilder.toString());
+            out.flush();
+            out.close();
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            String line;
+            StringBuilder sb = new StringBuilder();
+            while ((line = bufferedReader.readLine()) != null){
+                sb.append(line);
+            }
+
+            bufferedReader.close();
+            return sb.toString();
+
+        }catch (Exception e){
+
+            return e.getMessage();
+
+        }
+    }
+
+    public String login(String nim, String password, String token){
         String url = Url.url+"/simeru/json/mhs_login.php";
 
         try {
@@ -39,6 +73,7 @@ public class JsonReq {
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.append("nim="+nim);
             stringBuilder.append("&password="+password);
+            stringBuilder.append("&token="+token);
             connection.setDoOutput(true);
             DataOutputStream out = new DataOutputStream(connection.getOutputStream());
             out.writeBytes(stringBuilder.toString());

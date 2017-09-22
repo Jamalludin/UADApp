@@ -1,4 +1,4 @@
-package id.ac.uad.android.jamal.uadapp.simeru.callbacksimeru;
+package id.ac.uad.android.jamal.uadapp.perwalian.callbackperwalian;
 
 import android.content.Context;
 import android.util.Log;
@@ -14,33 +14,34 @@ import org.json.JSONObject;
 import static id.ac.uad.android.jamal.uadapp.pojo.Url.url;
 
 /**
- * Created by jamal on 08/09/17.
+ * Created by jamal on 22/09/17.
  */
 
-public class KuliahCallBack {
+public class BeritaCallBack {
 
-    RequestQueue reqQueue;
-    String Url = url+"/simeru/json/prodi.php?idprodi=";
+    RequestQueue requestQueue;
+    String koneksi = url+"/simeru/json/dindingperwalian.php?niy=";
 
-    public KuliahCallBack(Context context) {
+    public BeritaCallBack(Context context) {
 
-        reqQueue = Volley.newRequestQueue(context);
+        requestQueue = Volley.newRequestQueue(context);
     }
 
-    public void KuliahCallBack(String prodi, final Callback callback){
+    public void BeritaCallBack(String niydsn, final Beritadsn beritadsn){
 
-        JsonObjectRequest arr = new JsonObjectRequest(Url+prodi, new Response.Listener<JSONObject>() {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(koneksi+niydsn, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
 
                 try {
 
                     Log.e("data", response.toString());
-                    callback.Result(response.toString());
+                    beritadsn.Result(response.toString());
 
-                } catch (Exception e) {
+                }catch (Exception e){
 
                 }
+
             }
         }, new Response.ErrorListener() {
             @Override
@@ -48,10 +49,13 @@ public class KuliahCallBack {
 
             }
         });
-        reqQueue.add(arr);
+
+        requestQueue.add(jsonObjectRequest);
+
     }
 
-    public interface Callback{
+    public interface Beritadsn{
+
         void Result (String result);
     }
 }

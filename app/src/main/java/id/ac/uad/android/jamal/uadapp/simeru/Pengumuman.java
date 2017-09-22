@@ -57,7 +57,6 @@ public class Pengumuman extends AppCompatActivity {
     public void getData(String mhsnim){
 
         PengumumanCallBack pc = new PengumumanCallBack(context);
-
         pc.PengumumanCallBack(mhsnim, new PengumumanCallBack.PngumumanCallback() {
             @Override
             public void Result(String result) {
@@ -71,11 +70,13 @@ public class Pengumuman extends AppCompatActivity {
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         PengumumanSimeru data = new PengumumanSimeru();
-                        data.setMatkulps(jsonObject.getString("matakuliah_idmatakuliah"));
+                        data.setMatkulps(jsonObject.getString("namakul"));
                         data.setKelasps(jsonObject.getString("kelas"));
                         data.setHarips(jsonObject.getString("hari"));
                         data.setJamps(jsonObject.getString("jam"));
                         data.setInfops(jsonObject.getString("keterangan"));
+                        if(jsonObject.getString("keterangan").equals("Lain-Lain"))
+                           data.setInfops(jsonObject.getString("lainlain"));
                         datanya.add(data);
                     }
 
@@ -127,10 +128,10 @@ public class Pengumuman extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(ViewAdapter holder, int position) {
-            holder.matkul.setText(isiDatanya.get(position).getMatkulps());
-            holder.kls.setText(isiDatanya.get(position).getKelasps());
-            holder.hari.setText(isiDatanya.get(position).getHarips());
-            holder.jam.setText(isiDatanya.get(position).getJamps());
+            holder.matkul.setText(" : "+isiDatanya.get(position).getMatkulps());
+            holder.kls.setText(" : "+isiDatanya.get(position).getKelasps());
+            holder.hari.setText(" : "+isiDatanya.get(position).getHarips());
+            holder.jam.setText(" : "+isiDatanya.get(position).getJamps());
             holder.info.setText(isiDatanya.get(position).getInfops());
         }
     }

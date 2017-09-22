@@ -13,7 +13,9 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
 import id.ac.uad.android.jamal.uadapp.R;
+import id.ac.uad.android.jamal.uadapp.perwalian.BeritaDosenWali;
 import id.ac.uad.android.jamal.uadapp.perwalian.ChatDosen;
+import id.ac.uad.android.jamal.uadapp.simeru.Pengumuman;
 
 /**
  * Created by jamal on 27/07/17.
@@ -37,11 +39,17 @@ public class FcmMessaging extends FirebaseMessagingService {
         }
         String pesan = remoteMessage.getData().get("message");
         String judul = remoteMessage.getData().get("title");
-        KirimPesan(pesan,judul);
+        String jenis = remoteMessage.getData().get("jenis");
+        KirimPesan(pesan,judul,jenis);
     }
 
-    private void KirimPesan(String pesan, String judul){
-        Intent intent = new Intent(this, ChatDosen.class);
+    private void KirimPesan(String pesan, String judul,String jenis){
+        Intent intent;
+        if(jenis.equals("perwalian")){
+            intent = new Intent(this, BeritaDosenWali.class);
+        }else{
+            intent = new Intent(this, Pengumuman.class);
+        }
         intent.putExtra("pesan",pesan);
         intent.putExtra("title",judul);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -49,7 +57,7 @@ public class FcmMessaging extends FirebaseMessagingService {
         Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
         builder.setSmallIcon(R.mipmap.ic_launcher);
-        builder.setContentTitle("Dosen Pembimbing");
+        builder.setContentTitle(judul);
         builder.setContentText(pesan)
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)

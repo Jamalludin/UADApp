@@ -11,7 +11,7 @@ import org.junit.runner.RunWith;
 
 import java.util.concurrent.TimeUnit;
 
-import id.ac.uad.android.jamal.uadapp.simeru.callbacksimeru.KuliahCallBack;
+import id.ac.uad.android.jamal.uadapp.simeru.callbacksimeru.JadwalKuliahCallBack;
 
 import static org.junit.Assert.assertEquals;
 
@@ -36,11 +36,11 @@ public class TestJadwalKuliah {
     @Test
     public void useTestJadwalKuliah() throws Exception{
 
-        KuliahCallBack kuliah = new KuliahCallBack(context);
+        JadwalKuliahCallBack kuliah = new JadwalKuliahCallBack(context);
 
         final SettableFuture<String> ff = SettableFuture.create();
 
-        kuliah.KuliahCallBack("far00", new KuliahCallBack.Callback() {
+        kuliah.JadwalKuliahCallBack("far00", new JadwalKuliahCallBack.Kuliah() {
             @Override
             public void Result(String result) {
 

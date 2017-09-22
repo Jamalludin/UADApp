@@ -44,6 +44,7 @@ public class TestPengumuman {
 
                 ff.set(result);
             }
+
         });
 
         String isi = ff.get(5, TimeUnit.SECONDS);

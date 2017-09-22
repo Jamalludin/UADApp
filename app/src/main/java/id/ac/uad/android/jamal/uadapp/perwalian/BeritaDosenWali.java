@@ -1,5 +1,6 @@
 package id.ac.uad.android.jamal.uadapp.perwalian;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -24,6 +25,7 @@ import java.util.List;
 
 import id.ac.uad.android.jamal.uadapp.R;
 import id.ac.uad.android.jamal.uadapp.login.Session;
+import id.ac.uad.android.jamal.uadapp.perwalian.callbackperwalian.BeritaCallBack;
 import id.ac.uad.android.jamal.uadapp.pojo.SetDindingDosen;
 import id.ac.uad.android.jamal.uadapp.simeru.Pengumuman;
 
@@ -32,20 +34,20 @@ import static id.ac.uad.android.jamal.uadapp.pojo.Url.url;
 public class BeritaDosenWali extends AppCompatActivity {
 
     private RecyclerView Rview;
-    RequestQueue reqQueue;
     List<SetDindingDosen> datanya;
+    public static Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_berita_dosen_wali);
 
+        context = BeritaDosenWali.this;
         Session dsn = new Session(this);
         String namadsn = dsn.getDosenwali();
         getSupportActionBar().setTitle("Pengumuman Dosen Wali");
         getSupportActionBar().setSubtitle(namadsn);
 
-        reqQueue = Volley.newRequestQueue(this);
         Rview = (RecyclerView) findViewById(R.id.buatberita);
         Rview.setHasFixedSize(true);
         RecyclerView.LayoutManager mlayout = new LinearLayoutManager(this);
@@ -58,36 +60,33 @@ public class BeritaDosenWali extends AppCompatActivity {
 
     public void getData(String dosen){
 
-        String JsonUrl = url+"/simeru/json/dindingperwalian.php?niy="+dosen;
-        JsonObjectRequest jreq = new JsonObjectRequest(JsonUrl, new Response.Listener<JSONObject>() {
+        BeritaCallBack bc = new BeritaCallBack(context);
+        bc.BeritaCallBack(dosen, new BeritaCallBack.Beritadsn() {
             @Override
-            public void onResponse(JSONObject response) {
+            public void Result(String result) {
+
                 datanya = new ArrayList<>();
                 try {
-                    JSONArray jsonArray = response.getJSONArray("hasil");
+
+                    JSONObject jo = new JSONObject(result);
+                    JSONArray jsonArray = jo.getJSONArray("hasil");
+
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         SetDindingDosen dsn = new SetDindingDosen();
+                        dsn.setPengumuman(jsonObject.getString("info"));
                         dsn.setJamdinding(jsonObject.getString("jam"));
-                        dsn.setPengumuman(jsonObject.getString("informasi"));
                         datanya.add(dsn);
                     }
                 } catch (Exception e) {
-                    Toast.makeText(BeritaDosenWali.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+
                 }
 
                 DindingDsn adapter = new DindingDsn(datanya);
                 Rview.setAdapter(adapter);
 
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(BeritaDosenWali.this, error.getMessage(), Toast.LENGTH_SHORT).show();
-            }
         });
-
-        reqQueue.add(jreq);
     }
 
     class DindingDsn extends RecyclerView.Adapter<DindingDsn.ViewDinding> {

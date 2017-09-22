@@ -1,12 +1,16 @@
 package id.ac.uad.android.jamal.uadapp;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.firebase.iid.FirebaseInstanceId;
+
+import id.ac.uad.android.jamal.uadapp.json.JsonReq;
 import id.ac.uad.android.jamal.uadapp.login.Login;
 import id.ac.uad.android.jamal.uadapp.login.Session;
 import id.ac.uad.android.jamal.uadapp.perwalian.Perwalian;
@@ -46,12 +50,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(tentang);
                 break;
             case R.id.img_keluar:
-                Session keluar = new Session(this);
-                keluar.keluar();
-                Intent back = new Intent(this, Login.class);
-                startActivity(back);
-                finish();
+                logout();
                 break;
         }
+    }
+
+    public void logout(){
+        final String token = FirebaseInstanceId.getInstance().getToken();
+        new AsyncTask<Void, Void, String>(){
+
+            @Override
+            protected String doInBackground(Void... params) {
+
+                JsonReq js = new JsonReq();
+                return js.removeToken(token);
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+
+                Session session = new Session(getApplicationContext());
+                session.keluar();
+                startActivity(new Intent(getApplicationContext(),Login.class));
+                finish();
+            }
+        }.execute();
     }
 }

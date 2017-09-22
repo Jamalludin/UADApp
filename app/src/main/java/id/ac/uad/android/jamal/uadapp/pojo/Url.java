@@ -6,5 +6,5 @@ package id.ac.uad.android.jamal.uadapp.pojo;
 
 public class Url {
 
-    public static String url = "https://api-uad.000webhostapp.com";
+    public static String url = "http://192.168.1.17";
 }

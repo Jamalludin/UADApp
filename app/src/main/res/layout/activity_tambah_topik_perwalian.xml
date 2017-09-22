@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingRight="3dp"
+    android:paddingLeft="3dp"
+    tools:context="id.ac.uad.android.jamal.uadapp.perwalian.TambahTopikPerwalian">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/isitopik"
+        android:hint="Tambah Topik Perwalian"
+        android:gravity="center_horizontal"
+        android:layout_centerInParent="true"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tambahtopik"
+        android:layout_below="@+id/isitopik"
+        android:hint="Tambah Topik"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:textColor="#000"
+        android:background="@color/colorPrimary"/>
+</RelativeLayout>
