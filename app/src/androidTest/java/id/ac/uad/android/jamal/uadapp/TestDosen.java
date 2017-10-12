@@ -1,3 +1,5 @@
+
+
 package id.ac.uad.android.jamal.uadapp;
 
 import android.content.Context;
@@ -24,7 +26,7 @@ import static org.junit.Assert.assertEquals;
 @RunWith(AndroidJUnit4.class)
 public class TestDosen {
 
-    String datanya = "{\"hasil\":{\"Sabtu\":[{\"idajar\":\"11\",\"dosen_niynipnidn\":\"0015118001\",\"matakuliah_idmatakuliah\":\"sisdig17\",\"ruang_idruang\":\"3.1.319\",\"kelas\":\"B\",\"jam\":\"7,8\",\"hari\":\"Sabtu\",\"niynipnidn\":\"0015118001\",\"namadosen\":\"Fiftin Noviyanto, S.T., M. Cs\",\"program_studi_idprogram_studi\":\"tif00\",\"password\":\"f1163db4fa5d133f619620d0d0d0a454\",\"idmatakuliah\":\"sisdig17\",\"sks\":\"3\",\"semester\":\"4\",\"namakul\":\"Sistem Digital\"}]}}";
+    String datanya = "{\"hasil\":{\"Kamis\":[{\"idajar\":\"75\",\"dosen_niynipnidn\":\"0015118001\",\"matakuliah_idmatakuliah\":\"1865631\",\"ruang_idruang\":\"3.1.313\",\"kelas\":\"A\",\"jam\":\"08.45-10.45\",\"hari\":\"Kamis\",\"niynipnidn\":\"0015118001\",\"namadosen\":\"Fiftin Noviyanto, S.T., M. Cs\",\"program_studi_idprogram_studi\":\"tif00\",\"password\":\"da532bf806defa26fdbeee5dd2e0d68f\",\"idmatakuliah\":\"1865631\",\"namakul\":\"Pemrograman Web Dinamis\",\"semester\":\"6\",\"sks\":\"3\"},{\"idajar\":\"80\",\"dosen_niynipnidn\":\"0015118001\",\"matakuliah_idmatakuliah\":\"1815230\",\"ruang_idruang\":\"Ruang.8\",\"kelas\":\"D\",\"jam\":\"12.30-15.05\",\"hari\":\"Kamis\",\"niynipnidn\":\"0015118001\",\"namadosen\":\"Fiftin Noviyanto, S.T., M. Cs\",\"program_studi_idprogram_studi\":\"tif00\",\"password\":\"da532bf806defa26fdbeee5dd2e0d68f\",\"idmatakuliah\":\"1815230\",\"namakul\":\"Dasar Pemrograman\",\"semester\":\"1\",\"sks\":\"3\"}]}}";
     Context context;
 
     @Before

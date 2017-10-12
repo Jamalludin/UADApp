@@ -31,7 +31,6 @@ public class JadwalNgajarDosen extends AppCompatActivity {
     private TabLayout dosenlayout;
     private Toolbar toolbardosen;
     private ViewPager viewPagerdosen;
-    private RequestQueue requestQueue;
     private String niy = null;
     private String nama = null;
     public static Context context;
@@ -61,7 +60,7 @@ public class JadwalNgajarDosen extends AppCompatActivity {
         niy = getIntent().getStringExtra("niy");
         DosenCallBack dc = new DosenCallBack(context);
 
-        dc.DosenCallBack(niy, new DosenCallBack.DsnCallback() {
+    dc.DosenCallBack(niy, new DosenCallBack.DsnCallback() {
             @Override
             public void Result(String result) {
                 List<String> haristring = new ArrayList<>();

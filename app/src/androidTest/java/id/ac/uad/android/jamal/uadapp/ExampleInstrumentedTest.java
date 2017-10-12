@@ -25,12 +25,5 @@ public class ExampleInstrumentedTest {
 
         assertEquals("id.ac.uad.android.jamal.uadapp", appContext.getPackageName());
     }
-    /*@Test
-    public void testPengumuman() throws Exception{
 
-        Pengumuman pengumuman = (Pengumuman) InstrumentationRegistry.getTargetContext();
-
-        String data = pengumuman.testKon();
-        assertEquals(data, "2016-10-28 19:00:07");
-    }*/
 }

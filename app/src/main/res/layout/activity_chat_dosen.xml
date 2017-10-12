@@ -15,7 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        app:srcCompat="@drawable/ic_send_white_36dp"
+        app:srcCompat="@android:drawable/ic_menu_send"
         android:layout_marginLeft="16dp"
         android:layout_alignParentBottom="true"
         app:fabSize="mini"
@@ -30,23 +30,30 @@
         android:id="@+id/msginput">
 
         <EditText
-            android:layout_width="311dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Input Pesan"
             android:id="@+id/inputmsg"/>
 
     </android.support.design.widget.TextInputLayout>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/topik"
+        android:text="Topikinya"
+        android:paddingBottom="10dp"/>
+
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/isichat"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
+        android:layout_below="@+id/topik"
         android:layout_above="@+id/fab"
         android:dividerHeight="16dp"
-        android:divider="@android:color/transparent"
-        android:layout_marginBottom="16dp">
+        android:layout_marginBottom="20dp"
+        android:stackFromBottom="true"
+        android:divider="@android:color/transparent">
     </ListView>
 
 </RelativeLayout>

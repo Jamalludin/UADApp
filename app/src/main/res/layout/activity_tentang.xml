@@ -10,4 +10,32 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="id.ac.uad.android.jamal.uadapp.Tentang">
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_launcher"
+        android:id="@+id/gambarview"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gambarview"
+        android:paddingTop="10dp"
+        android:textStyle="italic|bold"
+        android:text="Aplikasi UAD for Student Merupakan Aplikasi untuk Mahasiswa UAD yang Digunakan Untuk Perwalian dan SIMERU"/>
+
+    <TextView
+        android:id="@+id/txt_keterangan"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_span="6"
+        android:gravity="center"
+        android:padding="15dp"
+        android:text="Fakultas Teknologi Industri | UAD - 2017 "
+        android:textColor="#000"
+        android:textSize="12dp" />
+
 </RelativeLayout>

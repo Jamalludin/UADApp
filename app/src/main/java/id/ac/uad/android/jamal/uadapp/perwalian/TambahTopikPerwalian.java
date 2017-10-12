@@ -58,7 +58,7 @@ public class TambahTopikPerwalian extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
 
-                Toast.makeText(TambahTopikPerwalian.this, "Topik Telah Terkirim", Toast.LENGTH_SHORT).show();
+                Toast.makeText(TambahTopikPerwalian.this, "Topik Berhasil Dibuat", Toast.LENGTH_SHORT).show();
                 onBackPressed();
 
             }
@@ -73,8 +73,14 @@ public class TambahTopikPerwalian extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
 
                 Map<String,String> data = new HashMap<>();
+
+                String niy = new Session(getApplicationContext()).getIdDosen();
+                String user = new Session(getApplicationContext()).getNama();
                 data.put("iduser", iduser);
-                data.put("info", info);
+                data.put("topik", info);
+                data.put("idperwalian",niy);
+                data.put("role", "mahasiswa");
+                data.put("username",user);
                 return data;
             }
         };

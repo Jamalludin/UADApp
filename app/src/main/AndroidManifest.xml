@@ -42,7 +42,9 @@
             android:name=".simeru.Simeru"
             android:label="Simeru UAD"
             android:theme="@style/AppTheme" />
-        <activity android:name=".Tentang" />
+        <activity android:name=".Tentang"
+            android:theme="@style/AppTheme"
+            android:label="Tentang Aplikasi UAD for Student"/>
         <activity
             android:name=".simeru.Pengumuman"
             android:label="Pengumuman Simeru UAD"

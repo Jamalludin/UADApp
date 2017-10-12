@@ -39,6 +39,7 @@
                     android:layout_height="match_parent"
                     android:paddingTop="10dp"
                     android:text="Tanggal Pengumuman"
+                    android:textStyle="italic"
                     android:textColor="@color/colorPrimary" />
 
             </LinearLayout>

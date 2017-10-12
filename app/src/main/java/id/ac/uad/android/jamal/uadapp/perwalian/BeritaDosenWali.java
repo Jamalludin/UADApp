@@ -60,6 +60,7 @@ public class BeritaDosenWali extends AppCompatActivity {
 
     public void getData(String dosen){
 
+
         BeritaCallBack bc = new BeritaCallBack(context);
         bc.BeritaCallBack(dosen, new BeritaCallBack.Beritadsn() {
             @Override

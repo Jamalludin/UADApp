@@ -18,7 +18,7 @@ import static id.ac.uad.android.jamal.uadapp.pojo.Url.url;
 public class TopikCallBack {
 
     RequestQueue requestQueue;
-    String Url = url+"/simeru/perwalian/gettopik.php?iduser=";
+    String Url = url+"/simeru/perwalian/gettopik.php?idperwalian=";
 
     public TopikCallBack(Context context) {
 
@@ -26,9 +26,9 @@ public class TopikCallBack {
 
     }
 
-    public void TopikCallBack(String nim, final Addtopik addtopik){
+    public void TopikCallBack(String iddosen, final Addtopik addtopik){
 
-        StringRequest stringRequest = new StringRequest(Url + nim, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Url + iddosen, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 

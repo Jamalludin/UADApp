@@ -33,6 +33,7 @@ public class TopikPerwalian extends AppCompatActivity {
     private List<SetTopik> topik;
     public static Context context;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,15 +60,15 @@ public class TopikPerwalian extends AppCompatActivity {
         });
 
         Session nimmhs = new Session(this);
-        String nimnya = nimmhs.getNim();
+        String idnya = nimmhs.getIdDosen();
 
-        getData(nimnya);
+        getData(idnya);
     }
 
-    public void getData(String nim){
+    public void getData(String idnya){
 
         TopikCallBack tb = new TopikCallBack(context);
-        tb.TopikCallBack(nim, new TopikCallBack.Addtopik() {
+        tb.TopikCallBack(idnya, new TopikCallBack.Addtopik() {
             @Override
             public void Hasil(String hasil) {
 
@@ -101,7 +102,7 @@ public class TopikPerwalian extends AppCompatActivity {
 
         class ViewTambah extends RecyclerView.ViewHolder{
 
-            TextView idtopik,jam, info;
+            TextView idtopik,jam,info;
 
             public ViewTambah(View itemView) {
                 super(itemView);
@@ -116,6 +117,7 @@ public class TopikPerwalian extends AppCompatActivity {
 
                         Intent i = new Intent(TopikPerwalian.this, ChatDosen.class);
                         i.putExtra("idtopik",idtopik.getText().toString());
+                        i.putExtra("topik", info.getText().toString());
                         startActivity(i);
 
 
@@ -158,6 +160,6 @@ public class TopikPerwalian extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        getData(new Session(this).getNim());
+        getData(new Session(this).getIdDosen());
     }
 }

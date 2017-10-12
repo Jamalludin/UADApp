@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="5dp"
+    android:layout_weight="2">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bubble_out"
+        android:padding="10dp"
+        android:layout_weight="1"
+        android:layout_alignParentLeft="true"
+        android:id="@+id/chatkiri">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/username"
+            android:textSize="12dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:text="Username" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/comentkiri"
+            android:textSize="16dp"
+            android:paddingLeft="5dp"
+            android:paddingTop="10dp"
+            android:layout_below="@+id/username"
+            android:text="Koment Kiri"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/chatKanan"
+        android:background="@drawable/bubble_in"
+        android:layout_weight="1"
+        android:padding="10dp"
+        android:layout_alignParentRight="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/usernamekanan"
+            android:textSize="12dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:text="Username" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/comentkanan"
+            android:paddingTop="10dp"
+            android:textSize="16dp"
+            android:paddingLeft="5dp"
+            android:layout_below="@+id/usernamekanan"
+            android:text="Koment Kiri"/>
+    </RelativeLayout>
+
+</LinearLayout>
